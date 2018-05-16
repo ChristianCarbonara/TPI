@@ -1,0 +1,9 @@
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\bin\Debug\Convertisseur_de_bases.exe.config
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\bin\Debug\Convertisseur_de_bases.exe
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\bin\Debug\Convertisseur_de_bases.pdb
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.fntProgram.resources
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.Properties.Resources.resources
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.csproj.GenerateResource.Cache
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.exe
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.pdb
+H:\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.csprojResolveAssemblyReference.cache
