@@ -37,10 +37,20 @@
             this.txbResultConvMiddle = new System.Windows.Forms.TextBox();
             this.txbResultConvRight = new System.Windows.Forms.TextBox();
             this.btnConvert = new System.Windows.Forms.Button();
+            this.tsddbChoseMode = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsmiModeAddition = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiModeSubtract = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsddbOptions = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsbHelp = new System.Windows.Forms.ToolStripButton();
+            this.tsMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // tsMenu
             // 
+            this.tsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsddbChoseMode,
+            this.tsddbOptions,
+            this.tsbHelp});
             this.tsMenu.Location = new System.Drawing.Point(0, 0);
             this.tsMenu.Name = "tsMenu";
             this.tsMenu.Size = new System.Drawing.Size(449, 25);
@@ -123,6 +133,46 @@
             this.btnConvert.Text = "Convertir";
             this.btnConvert.UseVisualStyleBackColor = true;
             // 
+            // tsddbChoseMode
+            // 
+            this.tsddbChoseMode.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbChoseMode.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiModeAddition,
+            this.tsmiModeSubtract});
+            this.tsddbChoseMode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbChoseMode.Name = "tsddbChoseMode";
+            this.tsddbChoseMode.Size = new System.Drawing.Size(51, 22);
+            this.tsddbChoseMode.Text = "Mode";
+            // 
+            // tsmiModeAddition
+            // 
+            this.tsmiModeAddition.Name = "tsmiModeAddition";
+            this.tsmiModeAddition.Size = new System.Drawing.Size(152, 22);
+            this.tsmiModeAddition.Text = "Additionner";
+            // 
+            // tsmiModeSubtract
+            // 
+            this.tsmiModeSubtract.Name = "tsmiModeSubtract";
+            this.tsmiModeSubtract.Size = new System.Drawing.Size(152, 22);
+            this.tsmiModeSubtract.Text = "Soustraire";
+            // 
+            // tsddbOptions
+            // 
+            this.tsddbOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsddbOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsddbOptions.Name = "tsddbOptions";
+            this.tsddbOptions.Size = new System.Drawing.Size(62, 22);
+            this.tsddbOptions.Text = "Options";
+            // 
+            // tsbHelp
+            // 
+            this.tsbHelp.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbHelp.Name = "tsbHelp";
+            this.tsbHelp.Size = new System.Drawing.Size(23, 22);
+            this.tsbHelp.Text = "?";
+            // 
             // fntProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -140,6 +190,8 @@
             this.Name = "fntProgram";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Convertisseur de bases";
+            this.tsMenu.ResumeLayout(false);
+            this.tsMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,6 +208,11 @@
         private System.Windows.Forms.TextBox txbResultConvMiddle;
         private System.Windows.Forms.TextBox txbResultConvRight;
         private System.Windows.Forms.Button btnConvert;
+        private System.Windows.Forms.ToolStripDropDownButton tsddbChoseMode;
+        private System.Windows.Forms.ToolStripMenuItem tsmiModeAddition;
+        private System.Windows.Forms.ToolStripMenuItem tsmiModeSubtract;
+        private System.Windows.Forms.ToolStripDropDownButton tsddbOptions;
+        private System.Windows.Forms.ToolStripButton tsbHelp;
     }
 }
 
