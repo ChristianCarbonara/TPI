@@ -7,3 +7,4 @@ C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Conver
 C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Base_converter.csproj.GenerateResource.Cache
 C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.exe
 C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.pdb
+C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.IShowCalcul.resources

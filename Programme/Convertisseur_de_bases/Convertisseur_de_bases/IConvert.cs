@@ -30,12 +30,15 @@ namespace Convertisseur_de_bases
         const string DEC_TEXT = "Décimale";
         const string HEX_TEXT = "Héxadécimal";
         const string OCT_TEXT = "Octal";
+        const string SIGN_POS_TEXT = "Positif";
+        const string SIGN_NEG_TEXT = "Négatif";
 
         // Valeur max en bits pour chaque format
-        const int NBR_BITS_BIN_MAX = 31;
+        const int NBR_BITS_BIN_MAX = 32;
         const int NBR_BITS_DEC_MAX = 0;
         const int NBR_BITS_HEX_MAX = 0;
         const int NBR_BITS_OCT_MAX = 11;
+
 
         // Tableau pour stocker le résultat de chaque format
         int[] tabConvBin = new int[NBR_BITS_BIN_MAX];
@@ -43,25 +46,40 @@ namespace Convertisseur_de_bases
         int[] tabConvHex = new int[NBR_BITS_HEX_MAX];
         int[] tabConvOct = new int[NBR_BITS_OCT_MAX];
 
-        int valueUserEnter;
+        // Tableau pour stocker les résultats des calculs de chaque format
+        int[] tabConvCalculBin = new int[33];
+        int[] tabConvCalculDec = new int[NBR_BITS_DEC_MAX];
+        int[] tabConvCalculHex = new int[NBR_BITS_HEX_MAX];
+        int[] tabConvCalculOct = new int[12];
+
+        int valueUser;
         int nbrBitsUser;
 
         // Regex pour vérifier si l'utilisateur a entré uniquement des chiffres
         Regex checkValDec = new Regex("^[0-9]+$");
 
         /// <summary>
-        /// 
+        /// Initialise l'application au lancement, n'affiche que l'interface pour effectuer des conversions
+        /// non signé et sans virgule
         /// </summary>
         public fntProgram()
         {
             InitializeComponent();
+            tsmiSignedNo.Checked = true;
+            cobSign.Visible = false;
+            lblPoint.Visible = false;
+            txbValueUserAfterPoint.Visible = false;
+            tsmiSignedNo.BackColor = Color.PaleGreen;
             lblResultConvertLeft.Text = "";
             lblResultConvertMiddle.Text = "";
+            lblResultConvertRight.Text = "";
+            lblSign.Text = "";
+            lblSign.Text = "";
         }
 
         /// <summary>
-        /// Méthode qui permet à chaque changement de format d'indiquer à l'utilisateur si le nombre entrer 
-        /// correspond au format accépté ou non
+        /// Méthode qui permet à chaque changement de format d'indiquer à l'utilisateur si le nombre entré 
+        /// correspond au format défini
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -78,10 +96,12 @@ namespace Convertisseur_de_bases
                     else
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
+                        btnConvert.Enabled = false;
                     }
 
                     lblResultConvertLeft.Text = BIN_TEXT;
                     lblResultConvertMiddle.Text = OCT_TEXT;
+                    lblResultConvertRight.Text = HEX_TEXT;
                     break;
             }
         }
@@ -105,8 +125,6 @@ namespace Convertisseur_de_bases
         {
             string resultToShowBin = "";
             string resultToShowOCt = "";
-            int nbrBitsInTabBin = 0;
-            int nbrBitsInTabOct = 0;
             int nbrBitsBlockShow = 0;
             int nbrBitsBlockShowMax = 4;
 
@@ -114,123 +132,220 @@ namespace Convertisseur_de_bases
             switch (cobListFormat.Text)
             {
                 case DEC_TEXT:
-                    if (checkValDec.IsMatch(txbValueUserBeforePoint.Text))
+                    
+                    // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
+                    for (int countNbrInverse = convertDecToBin(); countNbrInverse >= 0; countNbrInverse--)
                     {
-                        valueUserEnter = Convert.ToInt32(txbValueUserBeforePoint.Text);
-                        nbrBitsUser = txbValueUserBeforePoint.Text.Length;
-
-                        // Permet de convertir le nombre en binaire et le stocker dans un tableau
-                        for (int countNbr = 0; countNbr < NBR_BITS_BIN_MAX; countNbr++)
+                        // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
+                        if (nbrBitsBlockShow < nbrBitsBlockShowMax)
                         {
-                            tabConvBin[countNbr] = valueUserEnter % 2;
-
-                            if (tabConvBin[countNbr] == 1)
-                            {
-                                valueUserEnter = (valueUserEnter - 1) / 2;
-                            }
-                            else
-                            {
-                                valueUserEnter = valueUserEnter / 2;
-                            }
-
-                            if (valueUserEnter == 0)
-                            {
-                                break;
-                            }
-
-                            nbrBitsInTabBin += 1;
+                            resultToShowBin = resultToShowBin + Convert.ToString(tabConvBin[countNbrInverse]);
+                            nbrBitsBlockShow++;
                         }
-
-                        valueUserEnter = Convert.ToInt32(txbValueUserBeforePoint.Text);
-                        // Permet de convertir le nombre en octal et le stocker dans un tableau
-                        for (int countNbr = 0; countNbr < NBR_BITS_OCT_MAX; countNbr++)
+                        else
                         {
-                            tabConvOct[countNbr] = valueUserEnter % 8;
-
-                            if (tabConvOct[countNbr] != 0)
-                            {
-                                valueUserEnter = (valueUserEnter - (valueUserEnter % 8)) / 8;
-                            }
-                            else
-                            {
-                                valueUserEnter = valueUserEnter / 8;
-                            }
-
-                            if (valueUserEnter == 0)
-                            {
-                                break;
-                            }
-
-                            nbrBitsInTabOct += 1;
+                            resultToShowBin = resultToShowBin + " ";
+                            nbrBitsBlockShow = 0;
                         }
-                        break;
                     }
-                    else
+
+                    nbrBitsBlockShow = 0;
+
+                    txbResultConvLeft.Text = resultToShowBin;
+
+                    // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
+                    for (int countNbrInverse = convertDecToOct(); countNbrInverse >= 0; countNbrInverse--)
                     {
-                        break;
+                        // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
+                        if (nbrBitsBlockShow < nbrBitsBlockShowMax)
+                        {
+                            resultToShowOCt = resultToShowOCt + Convert.ToString(tabConvOct[countNbrInverse]);
+                            nbrBitsBlockShow++;
+                        }
+                        else
+                        {
+                            resultToShowOCt = resultToShowOCt + " ";
+                            nbrBitsBlockShow = 0;
+                        }
                     }
+                    txbResultConvMiddle.Text = resultToShowOCt;
+                    break;
             }
-            
-            // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
-            for (int countNbrInverse = nbrBitsInTabBin; countNbrInverse >= 0; countNbrInverse--)
-            {
-                // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
-                if (nbrBitsBlockShow < nbrBitsBlockShowMax)
-                {
-                    resultToShowBin = resultToShowBin + Convert.ToString(tabConvBin[countNbrInverse]);
-                    nbrBitsBlockShow++;
-                }
-                else
-                {
-                    resultToShowBin = resultToShowBin + " ";
-                    nbrBitsBlockShow = 0;
-                }
-            }
-
-            txbResultConvLeft.Text = resultToShowBin;
-
-            nbrBitsBlockShow = 0;
-            nbrBitsBlockShowMax = 4;
-
-            // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
-            for (int countNbrInverse = nbrBitsInTabOct; countNbrInverse >= 0; countNbrInverse--)
-            {
-                // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
-                if (nbrBitsBlockShow < nbrBitsBlockShowMax)
-                {
-                    resultToShowOCt = resultToShowOCt + Convert.ToString(tabConvOct[countNbrInverse]);
-                    nbrBitsBlockShow++;
-                }
-                else
-                {
-                    resultToShowOCt = resultToShowOCt + " ";
-                    nbrBitsBlockShow = 0;
-                }
-            }
-            txbResultConvMiddle.Text = resultToShowOCt;
-
         }
 
         /// <summary>
-        /// Suivent
+        /// Vérifie le nombre entré par l'utilisateur correspond au format choisi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void txbValueUserBeforePoint_TextChanged(object sender, EventArgs e)
         {
+            string valueUserToCheck = "";
+
+            if(lblSign.Text == "+" || lblSign.Text == "-")
+            {
+                valueUserToCheck = lblSign.Text + txbValueUserBeforePoint.Text;
+            }
+            else
+            {
+                valueUserToCheck = txbValueUserBeforePoint.Text;
+            }
+
             switch (cobListFormat.Text)
             {
                 case DEC_TEXT:
-                    if (checkValDec.IsMatch(txbValueUserBeforePoint.Text))
+                    if (checkValDec.IsMatch(txbValueUserBeforePoint.Text) && int.TryParse(valueUserToCheck, out valueUser))
                     {
                         txbValueUserBeforePoint.BackColor = Color.White;
+                        btnConvert.Enabled = true;
                     }
                     else
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
+                        btnConvert.Enabled = false;
+                        txbResultConvLeft.Text = "Erreur";
+                        txbResultConvMiddle.Text = "Erreur";
                     }
                     break;  
             }
+        }
+
+        /// <summary>
+        /// Permet de définir que le nombre entré n'est pas signé
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiSignedNo_Click(object sender, EventArgs e)
+        {
+            tsmiSignedYes.BackColor = Color.White;
+            tsmiSignedNo.BackColor = Color.PaleGreen;
+            tsmiSignedYes.Checked = false;
+            tsmiSignedNo.Checked = true;
+            lblSign.Text = "";
+            cobSign.Visible = false;
+        }
+
+        /// <summary>
+        /// Permet de définir que le nombre entré est signé
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmiSignedYes_Click(object sender, EventArgs e)
+        {
+            tsmiSignedYes.BackColor = Color.PaleGreen;
+            tsmiSignedNo.BackColor = Color.White;
+            tsmiSignedYes.Checked = true;
+            tsmiSignedNo.Checked = false;
+            lblSign.Text = "";
+            cobSign.Visible = true;
+        }
+
+        /// <summary>
+        /// Permet de définir si le nombre signé est positif ou négatif
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cobSign_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cobSign.Text)
+            {
+                case SIGN_POS_TEXT:
+                    lblSign.Text = "+";
+                    break;
+
+                case SIGN_NEG_TEXT:
+                    lblSign.Text = "-";
+                    break;
+            }
+        }
+        
+        /// <summary>
+        /// Fonction permettant de convertir de décimal à binaire le nombre entré par l'utilisateur
+        /// </summary>
+        /// <returns>Nombre de caractère à afficher</returns>
+        private int convertDecToBin()
+        {
+            int nbrBitsInTabBin = 0;
+
+            tabConvCalculBin[0] = valueUser;
+            nbrBitsUser = txbValueUserBeforePoint.Text.Length;
+
+
+            // Permet de convertir le nombre en binaire et le stocker dans un tableau
+            for (int countNbr = 0; countNbr < NBR_BITS_BIN_MAX; countNbr++)
+            {
+                tabConvBin[countNbr] = tabConvCalculBin[countNbr] % 2;
+
+                if (tabConvBin[countNbr] == 1)
+                {
+                    tabConvCalculBin[countNbr + 1] = (tabConvCalculBin[countNbr] - 1) / 2;
+                }
+                else
+                {
+                    tabConvCalculBin[countNbr + 1] = tabConvCalculBin[countNbr] / 2;
+                }
+
+                if (tabConvCalculBin[countNbr + 1] == 0)
+                {
+                    break;
+                }
+
+                nbrBitsInTabBin += 1;
+            }
+
+            if(lblSign.Text != "+" && lblSign.Text != "")
+            {
+                string raplace;
+                for (int countNbr = 0; countNbr < NBR_BITS_BIN_MAX; countNbr++)
+                {
+                    raplace = Convert.ToString(tabConvBin[countNbr]);
+                    raplace = raplace.Replace("0", "2").Replace("1", "0").Replace("2","1");
+                    tabConvBin[countNbr] = Convert.ToInt32(raplace);
+                }
+            }
+            return nbrBitsInTabBin;
+        }
+
+        /// <summary>
+        /// Fonction permettant de convertir de décimal à octal le nombre entré par l'utilisateur
+        /// </summary>
+        /// <returns>Nombre de caractère à afficher</returns>
+        private int convertDecToOct()
+        {
+            int nbrBitsInTabOct = 0;
+            tabConvCalculOct[0] = valueUser;
+
+            // Permet de convertir le nombre en octal et le stocker dans un tableau
+            for (int countNbr = 0; countNbr < NBR_BITS_OCT_MAX; countNbr++)
+            {
+                tabConvOct[countNbr] = tabConvCalculOct[countNbr] % 8;
+
+                if (tabConvOct[countNbr] != 0)
+                {
+                    tabConvCalculOct[countNbr + 1] = (tabConvCalculOct[countNbr] - (tabConvCalculOct[countNbr] % 8)) / 8;
+                }
+                else
+                {
+                    tabConvCalculOct[countNbr + 1] = tabConvCalculOct[countNbr] / 8;
+                }
+
+                if (tabConvCalculOct[countNbr + 1] == 0)
+                {
+                    
+                    break;
+                }
+
+                nbrBitsInTabOct += 1;
+            }
+            return nbrBitsInTabOct;
+        }
+
+        private void btnShowCalculResultLeft_Click(object sender, EventArgs e)
+        {
+            IShowCalcul fntCalcul = new IShowCalcul();
+
+            fntCalcul.getTable()
+            fntCalcul.Show();
         }
     }
 }
