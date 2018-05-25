@@ -51,12 +51,17 @@ namespace Convertisseur_de_bases
         int[] tabConvCalculDec = new int[NBR_BITS_DEC_MAX];
         int[] tabConvCalculHex = new int[NBR_BITS_HEX_MAX];
         int[] tabConvCalculOct = new int[12];
-
+        
         int valueUser;
-        int nbrBitsUser;
+        int nbrBitsInTabBin = 0;
+        int nbrBitsInTabOct = 0;
+
+        string formatSelect = "";
 
         // Regex pour vérifier si l'utilisateur a entré uniquement des chiffres
         Regex checkValDec = new Regex("^[0-9]+$");
+        Regex checkValBin = new Regex("^[0-1]+$");
+
 
         /// <summary>
         /// Initialise l'application au lancement, n'affiche que l'interface pour effectuer des conversions
@@ -69,6 +74,11 @@ namespace Convertisseur_de_bases
             cobSign.Visible = false;
             lblPoint.Visible = false;
             txbValueUserAfterPoint.Visible = false;
+            btnConvert.Enabled = false;
+            btnShowCalculResultLeft.Enabled = false;
+            btnShowCalculResultMiddle.Enabled = false;
+            btnShowCalculResultRight.Enabled = false;
+            txbValueUserBeforePoint.Enabled = false;
             tsmiSignedNo.BackColor = Color.PaleGreen;
             lblResultConvertLeft.Text = "";
             lblResultConvertMiddle.Text = "";
@@ -85,21 +95,43 @@ namespace Convertisseur_de_bases
         /// <param name="e"></param>
         private void cobListFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
+            formatSelect = cobListFormat.Text;
+
             // Permet de vérifier si la valeur que l'utilisateur correspond au format choisi
-            switch(cobListFormat.Text)
+            switch (formatSelect)
             {
                 case DEC_TEXT:
                     if (checkValDec.IsMatch(txbValueUserBeforePoint.Text) || txbValueUserBeforePoint.Text == "")
                     {
                         txbValueUserBeforePoint.BackColor = Color.White;
+                        txbValueUserBeforePoint.Enabled = true;
                     }
                     else
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
                         btnConvert.Enabled = false;
+                        txbValueUserBeforePoint.Enabled = false;
                     }
 
                     lblResultConvertLeft.Text = BIN_TEXT;
+                    lblResultConvertMiddle.Text = OCT_TEXT;
+                    lblResultConvertRight.Text = HEX_TEXT;
+                    break;
+
+                case BIN_TEXT:
+                    if (checkValBin.IsMatch(txbValueUserBeforePoint.Text) || txbValueUserBeforePoint.Text == "")
+                    {
+                        txbValueUserBeforePoint.BackColor = Color.White;
+                        txbValueUserBeforePoint.Enabled = true;
+                    }
+                    else
+                    {
+                        txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
+                        btnConvert.Enabled = false;
+                        txbValueUserBeforePoint.Enabled = false;
+                    }
+
+                    lblResultConvertLeft.Text = DEC_TEXT;
                     lblResultConvertMiddle.Text = OCT_TEXT;
                     lblResultConvertRight.Text = HEX_TEXT;
                     break;
@@ -125,14 +157,21 @@ namespace Convertisseur_de_bases
         {
             string resultToShowBin = "";
             string resultToShowOCt = "";
+            string resultToShowDec = "";
             int nbrBitsBlockShow = 0;
             int nbrBitsBlockShowMax = 4;
+            txbResultConvLeft.Text = "";
+            txbResultConvMiddle.Text = "";
+
 
             // Permet de convertir suivent le format que l'utilisateur choisit
-            switch (cobListFormat.Text)
+            switch (formatSelect)
             {
                 case DEC_TEXT:
-                    
+
+                    btnShowCalculResultLeft.Enabled = true;
+                    btnShowCalculResultMiddle.Enabled = true;
+
                     // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
                     for (int countNbrInverse = convertDecToBin(); countNbrInverse >= 0; countNbrInverse--)
                     {
@@ -144,8 +183,8 @@ namespace Convertisseur_de_bases
                         }
                         else
                         {
-                            resultToShowBin = resultToShowBin + " ";
-                            nbrBitsBlockShow = 0;
+                            resultToShowBin = resultToShowBin + " " + Convert.ToString(tabConvBin[countNbrInverse]);
+                            nbrBitsBlockShow = 1;
                         }
                     }
 
@@ -170,6 +209,49 @@ namespace Convertisseur_de_bases
                     }
                     txbResultConvMiddle.Text = resultToShowOCt;
                     break;
+
+                    case BIN_TEXT:
+
+                        btnShowCalculResultLeft.Enabled = true;
+                        btnShowCalculResultMiddle.Enabled = true;
+
+                        // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
+                        for (int countNbrInverse = convertBinToDec(); countNbrInverse >= 0; countNbrInverse--)
+                        {
+                            // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
+                            if (nbrBitsBlockShow < nbrBitsBlockShowMax)
+                            {
+                                resultToShowDec = resultToShowDec + Convert.ToString(tabConvDec[countNbrInverse]);
+                                nbrBitsBlockShow++;
+                            }
+                            else
+                            {
+                                resultToShowDec = resultToShowDec + " " + Convert.ToString(tabConvDec[countNbrInverse]);
+                                nbrBitsBlockShow = 1;
+                            }
+                        }
+
+                        nbrBitsBlockShow = 0;
+
+                        txbResultConvLeft.Text = resultToShowDec;
+
+                        // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
+                        for (int countNbrInverse = convertDecToOct(); countNbrInverse >= 0; countNbrInverse--)
+                        {
+                            // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
+                            if (nbrBitsBlockShow < nbrBitsBlockShowMax)
+                            {
+                                resultToShowOCt = resultToShowOCt + Convert.ToString(tabConvOct[countNbrInverse]);
+                                nbrBitsBlockShow++;
+                            }
+                            else
+                            {
+                                resultToShowOCt = resultToShowOCt + " ";
+                                nbrBitsBlockShow = 0;
+                            }
+                        }
+                        txbResultConvMiddle.Text = resultToShowOCt;
+                        break;
             }
         }
 
@@ -191,7 +273,7 @@ namespace Convertisseur_de_bases
                 valueUserToCheck = txbValueUserBeforePoint.Text;
             }
 
-            switch (cobListFormat.Text)
+            switch (formatSelect)
             {
                 case DEC_TEXT:
                     if (checkValDec.IsMatch(txbValueUserBeforePoint.Text) && int.TryParse(valueUserToCheck, out valueUser))
@@ -203,10 +285,27 @@ namespace Convertisseur_de_bases
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
                         btnConvert.Enabled = false;
+                        btnShowCalculResultLeft.Enabled = false;
                         txbResultConvLeft.Text = "Erreur";
                         txbResultConvMiddle.Text = "Erreur";
                     }
-                    break;  
+                    break;
+
+                case BIN_TEXT:
+                    if (checkValBin.IsMatch(txbValueUserBeforePoint.Text) && int.TryParse(valueUserToCheck, out valueUser))
+                    {
+                        txbValueUserBeforePoint.BackColor = Color.White;
+                        btnConvert.Enabled = true;
+                    }
+                    else
+                    {
+                        txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
+                        btnConvert.Enabled = false;
+                        btnShowCalculResultLeft.Enabled = false;
+                        txbResultConvLeft.Text = "Erreur";
+                        txbResultConvMiddle.Text = "Erreur";
+                    }
+                    break;
             }
         }
 
@@ -265,10 +364,8 @@ namespace Convertisseur_de_bases
         /// <returns>Nombre de caractère à afficher</returns>
         private int convertDecToBin()
         {
-            int nbrBitsInTabBin = 0;
-
+            nbrBitsInTabBin = 0;
             tabConvCalculBin[0] = valueUser;
-            nbrBitsUser = txbValueUserBeforePoint.Text.Length;
 
 
             // Permet de convertir le nombre en binaire et le stocker dans un tableau
@@ -292,7 +389,7 @@ namespace Convertisseur_de_bases
 
                 nbrBitsInTabBin += 1;
             }
-
+            /*
             if(lblSign.Text != "+" && lblSign.Text != "")
             {
                 string raplace;
@@ -303,6 +400,51 @@ namespace Convertisseur_de_bases
                     tabConvBin[countNbr] = Convert.ToInt32(raplace);
                 }
             }
+            */
+            return nbrBitsInTabBin;
+        }
+
+        /// <summary>
+        /// Fonction permettant de convertir de binaire à décimal le nombre entré par l'utilisateur
+        /// </summary>
+        /// <returns>Nombre de caractère à afficher</returns>
+        private int convertBinToDec()
+        {
+            string valueUserToConvert = Convert.ToString(valueUser);
+            /*
+            nbrBitsInTabBin = 0;
+            valueUser = 4123234;
+            tabConvCalculDec[NBR_BITS_BIN_MAX] = x.Substring(0,1);
+
+
+            // Permet de convertir le nombre en binaire et le stocker dans un tableau
+            for (int countNbr = NBR_BITS_BIN_MAX; countNbr < 0; countNbr++)
+            {
+                    tabConvBin
+                if (tabConvBin[countNbr] == 1)
+                {
+                    tabConvCalculDec[countNbr + 1] = (tabConvCalculDec[countNbr] - 1) / 2;
+                }
+                else
+                {
+                    tabConvCalculDec[countNbr + 1] = tabConvCalculDec[countNbr] / 2;
+                }
+
+                if (tabConvCalculDec[countNbr + 1] == 0)
+                {
+                    break;
+                }
+
+                nbrBitsInTabBin += 1;
+            }*/
+
+            int lengthValueUser = valueUserToConvert.Length;
+
+            for(int posTable = 0; posTable < lengthValueUser; posTable++)
+            {
+
+            }
+            
             return nbrBitsInTabBin;
         }
 
@@ -312,7 +454,7 @@ namespace Convertisseur_de_bases
         /// <returns>Nombre de caractère à afficher</returns>
         private int convertDecToOct()
         {
-            int nbrBitsInTabOct = 0;
+            nbrBitsInTabOct = 0;
             tabConvCalculOct[0] = valueUser;
 
             // Permet de convertir le nombre en octal et le stocker dans un tableau
@@ -340,11 +482,32 @@ namespace Convertisseur_de_bases
             return nbrBitsInTabOct;
         }
 
+        /// <summary>
+        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnShowCalculResultLeft_Click(object sender, EventArgs e)
         {
             IShowCalcul fntCalcul = new IShowCalcul();
 
-            fntCalcul.getTable()
+            for(int nbrConvCalculBinShow = 0; nbrConvCalculBinShow <= nbrBitsInTabBin; nbrConvCalculBinShow++)
+            {
+                fntCalcul.getTable(tabConvCalculBin[nbrConvCalculBinShow], tabConvBin[nbrConvCalculBinShow], lblResultConvertLeft.Text);
+            }
+            fntCalcul.showAllCalcul();
+            fntCalcul.Show();
+        }
+
+        private void btnShowCalculResultMiddle_Click(object sender, EventArgs e)
+        {
+            IShowCalcul fntCalcul = new IShowCalcul();
+
+            for (int nbrConvCalculOctShow = 0; nbrConvCalculOctShow <= nbrBitsInTabOct; nbrConvCalculOctShow++)
+            {
+                fntCalcul.getTable(tabConvCalculOct[nbrConvCalculOctShow], tabConvOct[nbrConvCalculOctShow], lblResultConvertMiddle.Text);
+            }
+            fntCalcul.showAllCalcul();
             fntCalcul.Show();
         }
     }

@@ -64,7 +64,7 @@
             this.tsbHelp});
             this.tsMenu.Location = new System.Drawing.Point(0, 0);
             this.tsMenu.Name = "tsMenu";
-            this.tsMenu.Size = new System.Drawing.Size(507, 25);
+            this.tsMenu.Size = new System.Drawing.Size(529, 25);
             this.tsMenu.TabIndex = 0;
             this.tsMenu.Text = "toolStrip1";
             // 
@@ -181,13 +181,13 @@
             this.txbResultConvLeft.Location = new System.Drawing.Point(25, 160);
             this.txbResultConvLeft.Name = "txbResultConvLeft";
             this.txbResultConvLeft.ReadOnly = true;
-            this.txbResultConvLeft.Size = new System.Drawing.Size(196, 20);
+            this.txbResultConvLeft.Size = new System.Drawing.Size(222, 20);
             this.txbResultConvLeft.TabIndex = 6;
             this.txbResultConvLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txbResultConvMiddle
             // 
-            this.txbResultConvMiddle.Location = new System.Drawing.Point(251, 161);
+            this.txbResultConvMiddle.Location = new System.Drawing.Point(273, 160);
             this.txbResultConvMiddle.Name = "txbResultConvMiddle";
             this.txbResultConvMiddle.ReadOnly = true;
             this.txbResultConvMiddle.Size = new System.Drawing.Size(100, 20);
@@ -196,7 +196,7 @@
             // 
             // txbResultConvRight
             // 
-            this.txbResultConvRight.Location = new System.Drawing.Point(382, 160);
+            this.txbResultConvRight.Location = new System.Drawing.Point(406, 160);
             this.txbResultConvRight.Name = "txbResultConvRight";
             this.txbResultConvRight.ReadOnly = true;
             this.txbResultConvRight.Size = new System.Drawing.Size(100, 20);
@@ -205,7 +205,7 @@
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(407, 264);
+            this.btnConvert.Location = new System.Drawing.Point(431, 261);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -225,7 +225,7 @@
             // lblResultConvertMiddle
             // 
             this.lblResultConvertMiddle.AutoSize = true;
-            this.lblResultConvertMiddle.Location = new System.Drawing.Point(248, 144);
+            this.lblResultConvertMiddle.Location = new System.Drawing.Point(270, 144);
             this.lblResultConvertMiddle.Name = "lblResultConvertMiddle";
             this.lblResultConvertMiddle.Size = new System.Drawing.Size(75, 13);
             this.lblResultConvertMiddle.TabIndex = 11;
@@ -234,7 +234,7 @@
             // lblResultConvertRight
             // 
             this.lblResultConvertRight.AutoSize = true;
-            this.lblResultConvertRight.Location = new System.Drawing.Point(379, 144);
+            this.lblResultConvertRight.Location = new System.Drawing.Point(403, 144);
             this.lblResultConvertRight.Name = "lblResultConvertRight";
             this.lblResultConvertRight.Size = new System.Drawing.Size(75, 13);
             this.lblResultConvertRight.TabIndex = 12;
@@ -263,7 +263,7 @@
             // 
             // btnShowCalculResultLeft
             // 
-            this.btnShowCalculResultLeft.Location = new System.Drawing.Point(121, 186);
+            this.btnShowCalculResultLeft.Location = new System.Drawing.Point(147, 186);
             this.btnShowCalculResultLeft.Name = "btnShowCalculResultLeft";
             this.btnShowCalculResultLeft.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultLeft.TabIndex = 15;
@@ -273,16 +273,17 @@
             // 
             // btnShowCalculResultMiddle
             // 
-            this.btnShowCalculResultMiddle.Location = new System.Drawing.Point(251, 186);
+            this.btnShowCalculResultMiddle.Location = new System.Drawing.Point(273, 186);
             this.btnShowCalculResultMiddle.Name = "btnShowCalculResultMiddle";
             this.btnShowCalculResultMiddle.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultMiddle.TabIndex = 16;
             this.btnShowCalculResultMiddle.Text = "Montrer le calcul";
             this.btnShowCalculResultMiddle.UseVisualStyleBackColor = true;
+            this.btnShowCalculResultMiddle.Click += new System.EventHandler(this.btnShowCalculResultMiddle_Click);
             // 
             // btnShowCalculResultRight
             // 
-            this.btnShowCalculResultRight.Location = new System.Drawing.Point(382, 186);
+            this.btnShowCalculResultRight.Location = new System.Drawing.Point(406, 186);
             this.btnShowCalculResultRight.Name = "btnShowCalculResultRight";
             this.btnShowCalculResultRight.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultRight.TabIndex = 17;
@@ -293,7 +294,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(507, 296);
+            this.ClientSize = new System.Drawing.Size(529, 296);
             this.Controls.Add(this.btnShowCalculResultRight);
             this.Controls.Add(this.btnShowCalculResultMiddle);
             this.Controls.Add(this.btnShowCalculResultLeft);
