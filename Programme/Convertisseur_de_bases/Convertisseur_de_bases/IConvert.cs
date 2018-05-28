@@ -229,21 +229,47 @@ namespace Convertisseur_de_bases
                         nbrBitsBlockShow = 0;
 
                         txbResultConvLeft.Text = resultToShowDec;
-
+                        int limiteOct = 0;
                         // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
                         for (int countNbrInverse = convertBinToOct(); countNbrInverse >= 0; countNbrInverse--)
                         {
-                            if (resultToShowOct != "")
+
+                        if (resultToShowOct != "")
+                        {
+                            if (limiteOct < 3)
                             {
                                 resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
+                                limiteOct++;
                             }
                             else
                             {
-                                resultToShowOct = "0";
+                                txbResultConvMiddle.Text = resultToShowOct + txbResultConvMiddle.Text;
+                                resultToShowOct = "";
+                                resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
+                                limiteOct = 0;
                             }
                         }
-                        txbResultConvMiddle.Text = resultToShowOct;
-                        break;
+                        else
+                        {
+                            resultToShowOct = "0";
+                            if (limiteOct < 3)
+                            {
+                                resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
+                                limiteOct++;
+                            }
+                            else
+                            {
+                                txbResultConvMiddle.Text = resultToShowOct + txbResultConvMiddle.Text;
+                                resultToShowOct = "";
+                                resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
+                                txbResultConvMiddle.Text = resultToShowOct + txbResultConvMiddle.Text;
+                                limiteOct = 0;
+                            }
+                        }
+
+                    }
+                    txbResultConvMiddle.Text = resultToShowOct +txbResultConvMiddle.Text;
+                    break;
             }
         }
 
@@ -459,19 +485,19 @@ namespace Convertisseur_de_bases
 
             int lengthValueUser = valueUserToConvert.Length;
 
-            for (int posTable = lengthValueUser; posTable > 0; posTable--)
+            for (int posTable = lengthValueUser-1; posTable >= 0; posTable--)
             {
                 if (limitConvertOct < 3)
                 {
-                    tabConvCalculOct[posTable - 1] = Convert.ToInt32(valueUserToConvert.Substring(lengthValueUser - posTable, 1));
-                    tabConvOct[posTable - 1] = tabConvCalculOct[posTable - 1] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(limitConvertOct)));
+                    tabConvCalculOct[posTable] = Convert.ToInt32(valueUserToConvert.Substring(posTable, 1));
+                    tabConvOct[posTable] = tabConvCalculOct[posTable ] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(limitConvertOct)));
                     limitConvertOct++;
                 }
                 else
                 {
                     limitConvertOct = 0;
-                    tabConvCalculOct[posTable - 1] = Convert.ToInt32(valueUserToConvert.Substring(lengthValueUser - posTable, 1));
-                    tabConvOct[posTable - 1] = tabConvCalculOct[posTable - 1] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(limitConvertOct)));
+                    tabConvCalculOct[posTable] = Convert.ToInt32(valueUserToConvert.Substring(posTable, 1));
+                    tabConvOct[posTable] = tabConvCalculOct[posTable] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(limitConvertOct)));
                 }
                 nbrBitsInTabOct++;
             }
