@@ -35,7 +35,7 @@ namespace Convertisseur_de_bases
 
         // Valeur max en bits pour chaque format
         const int NBR_BITS_BIN_MAX = 32;
-        const int NBR_BITS_DEC_MAX = 0;
+        const int NBR_BITS_DEC_MAX = 32;
         const int NBR_BITS_HEX_MAX = 0;
         const int NBR_BITS_OCT_MAX = 11;
 
@@ -110,7 +110,6 @@ namespace Convertisseur_de_bases
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
                         btnConvert.Enabled = false;
-                        txbValueUserBeforePoint.Enabled = false;
                     }
 
                     lblResultConvertLeft.Text = BIN_TEXT;
@@ -128,7 +127,6 @@ namespace Convertisseur_de_bases
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
                         btnConvert.Enabled = false;
-                        txbValueUserBeforePoint.Enabled = false;
                     }
 
                     lblResultConvertLeft.Text = DEC_TEXT;
@@ -156,7 +154,7 @@ namespace Convertisseur_de_bases
         private void btnConvert_Click(object sender, EventArgs e)
         {
             string resultToShowBin = "";
-            string resultToShowOCt = "";
+            string resultToShowOct = "";
             string resultToShowDec = "";
             int nbrBitsBlockShow = 0;
             int nbrBitsBlockShowMax = 4;
@@ -198,16 +196,16 @@ namespace Convertisseur_de_bases
                         // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
                         if (nbrBitsBlockShow < nbrBitsBlockShowMax)
                         {
-                            resultToShowOCt = resultToShowOCt + Convert.ToString(tabConvOct[countNbrInverse]);
+                            resultToShowOct = resultToShowOct + Convert.ToString(tabConvOct[countNbrInverse]);
                             nbrBitsBlockShow++;
                         }
                         else
                         {
-                            resultToShowOCt = resultToShowOCt + " ";
+                            resultToShowOct = resultToShowOct + " ";
                             nbrBitsBlockShow = 0;
                         }
                     }
-                    txbResultConvMiddle.Text = resultToShowOCt;
+                    txbResultConvMiddle.Text = resultToShowOct;
                     break;
 
                     case BIN_TEXT:
@@ -218,16 +216,13 @@ namespace Convertisseur_de_bases
                         // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
                         for (int countNbrInverse = convertBinToDec(); countNbrInverse >= 0; countNbrInverse--)
                         {
-                            // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
-                            if (nbrBitsBlockShow < nbrBitsBlockShowMax)
+                            if(resultToShowDec != "")
                             {
-                                resultToShowDec = resultToShowDec + Convert.ToString(tabConvDec[countNbrInverse]);
-                                nbrBitsBlockShow++;
+                                resultToShowDec = Convert.ToString(Convert.ToInt32(resultToShowDec) + (tabConvDec[countNbrInverse]));
                             }
                             else
                             {
-                                resultToShowDec = resultToShowDec + " " + Convert.ToString(tabConvDec[countNbrInverse]);
-                                nbrBitsBlockShow = 1;
+                                resultToShowDec = "0";
                             }
                         }
 
@@ -236,21 +231,18 @@ namespace Convertisseur_de_bases
                         txbResultConvLeft.Text = resultToShowDec;
 
                         // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
-                        for (int countNbrInverse = convertDecToOct(); countNbrInverse >= 0; countNbrInverse--)
+                        for (int countNbrInverse = convertBinToOct(); countNbrInverse >= 0; countNbrInverse--)
                         {
-                            // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
-                            if (nbrBitsBlockShow < nbrBitsBlockShowMax)
+                            if (resultToShowOct != "")
                             {
-                                resultToShowOCt = resultToShowOCt + Convert.ToString(tabConvOct[countNbrInverse]);
-                                nbrBitsBlockShow++;
+                                resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
                             }
                             else
                             {
-                                resultToShowOCt = resultToShowOCt + " ";
-                                nbrBitsBlockShow = 0;
+                                resultToShowOct = "0";
                             }
                         }
-                        txbResultConvMiddle.Text = resultToShowOCt;
+                        txbResultConvMiddle.Text = resultToShowOct;
                         break;
             }
         }
@@ -410,42 +402,19 @@ namespace Convertisseur_de_bases
         /// <returns>Nombre de caractère à afficher</returns>
         private int convertBinToDec()
         {
+            int nbrBitsInTabDec = 0;
             string valueUserToConvert = Convert.ToString(valueUser);
-            /*
-            nbrBitsInTabBin = 0;
-            valueUser = 4123234;
-            tabConvCalculDec[NBR_BITS_BIN_MAX] = x.Substring(0,1);
-
-
-            // Permet de convertir le nombre en binaire et le stocker dans un tableau
-            for (int countNbr = NBR_BITS_BIN_MAX; countNbr < 0; countNbr++)
-            {
-                    tabConvBin
-                if (tabConvBin[countNbr] == 1)
-                {
-                    tabConvCalculDec[countNbr + 1] = (tabConvCalculDec[countNbr] - 1) / 2;
-                }
-                else
-                {
-                    tabConvCalculDec[countNbr + 1] = tabConvCalculDec[countNbr] / 2;
-                }
-
-                if (tabConvCalculDec[countNbr + 1] == 0)
-                {
-                    break;
-                }
-
-                nbrBitsInTabBin += 1;
-            }*/
 
             int lengthValueUser = valueUserToConvert.Length;
 
-            for(int posTable = 0; posTable < lengthValueUser; posTable++)
+            for (int posTable = lengthValueUser; posTable > 0; posTable--)
             {
-
+                tabConvCalculDec[posTable -1] = Convert.ToInt32(valueUserToConvert.Substring(lengthValueUser - posTable, 1));
+                tabConvDec[posTable - 1] = tabConvCalculDec[posTable - 1] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(posTable - 1)));
+                nbrBitsInTabDec++;
             }
             
-            return nbrBitsInTabBin;
+            return nbrBitsInTabDec;
         }
 
         /// <summary>
@@ -479,6 +448,34 @@ namespace Convertisseur_de_bases
 
                 nbrBitsInTabOct += 1;
             }
+            return nbrBitsInTabOct;
+        }
+
+        private int convertBinToOct()
+        {
+            int nbrBitsInTabOct = 0;
+            int limitConvertOct = 0;
+            string valueUserToConvert = Convert.ToString(valueUser);
+
+            int lengthValueUser = valueUserToConvert.Length;
+
+            for (int posTable = lengthValueUser; posTable > 0; posTable--)
+            {
+                if (limitConvertOct < 3)
+                {
+                    tabConvCalculOct[posTable - 1] = Convert.ToInt32(valueUserToConvert.Substring(lengthValueUser - posTable, 1));
+                    tabConvOct[posTable - 1] = tabConvCalculOct[posTable - 1] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(limitConvertOct)));
+                    limitConvertOct++;
+                }
+                else
+                {
+                    limitConvertOct = 0;
+                    tabConvCalculOct[posTable - 1] = Convert.ToInt32(valueUserToConvert.Substring(lengthValueUser - posTable, 1));
+                    tabConvOct[posTable - 1] = tabConvCalculOct[posTable - 1] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(limitConvertOct)));
+                }
+                nbrBitsInTabOct++;
+            }
+
             return nbrBitsInTabOct;
         }
 
