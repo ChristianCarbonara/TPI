@@ -1,22 +1,16 @@
 ﻿/// ETML
 /// Auteur : Christian Carbonara
-/// Date   : 17.05.2018
+/// Date   : 30.05.2018
 /// Description : Page de démarrage du programme, utilisé pour la conversion
 ///               de nombres décimaux, binaires, otaux et hexadécimaux.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 /// <summary>
-/// 
+/// Programme de conversion
 /// </summary>
 namespace Convertisseur_de_bases
 {
@@ -137,16 +131,6 @@ namespace Convertisseur_de_bases
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txbValueUserAfterPoint_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        /// <summary>
         /// Bouton pour effectuer la conversion du nombre entrer suivent le format
         /// </summary>
         /// <param name="sender"></param>
@@ -171,7 +155,7 @@ namespace Convertisseur_de_bases
                     btnShowCalculResultMiddle.Enabled = true;
 
                     // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
-                    for (int countNbrInverse = convertDecToBin(); countNbrInverse >= 0; countNbrInverse--)
+                    for (int countNbrInverse = ConvertDecToBin(); countNbrInverse >= 0; countNbrInverse--)
                     {
                         // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
                         if (nbrBitsBlockShow < nbrBitsBlockShowMax)
@@ -191,7 +175,7 @@ namespace Convertisseur_de_bases
                     txbResultConvLeft.Text = resultToShowBin;
 
                     // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
-                    for (int countNbrInverse = convertDecToOct(); countNbrInverse >= 0; countNbrInverse--)
+                    for (int countNbrInverse = ConvertDecToOct(); countNbrInverse >= 0; countNbrInverse--)
                     {
                         // Permet d'espacer les chiffres une fois qu'un certain nombre de chiffres ont été affichés
                         if (nbrBitsBlockShow < nbrBitsBlockShowMax)
@@ -208,31 +192,31 @@ namespace Convertisseur_de_bases
                     txbResultConvMiddle.Text = resultToShowOct;
                     break;
 
-                    case BIN_TEXT:
+                case BIN_TEXT:
 
-                        btnShowCalculResultLeft.Enabled = true;
-                        btnShowCalculResultMiddle.Enabled = true;
+                    btnShowCalculResultLeft.Enabled = true;
+                    btnShowCalculResultMiddle.Enabled = true;
 
-                        // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
-                        for (int countNbrInverse = convertBinToDec(); countNbrInverse >= 0; countNbrInverse--)
+                    // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
+                    for (int countNbrInverse = ConvertBinToDec(); countNbrInverse >= 0; countNbrInverse--)
+                    {
+                        if (resultToShowDec != "")
                         {
-                            if(resultToShowDec != "")
-                            {
-                                resultToShowDec = Convert.ToString(Convert.ToInt32(resultToShowDec) + (tabConvDec[countNbrInverse]));
-                            }
-                            else
-                            {
-                                resultToShowDec = "0";
-                            }
+                            resultToShowDec = Convert.ToString(Convert.ToInt32(resultToShowDec) + (tabConvDec[countNbrInverse]));
                         }
-
-                        nbrBitsBlockShow = 0;
-
-                        txbResultConvLeft.Text = resultToShowDec;
-                        int limiteOct = 0;
-                        // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
-                        for (int countNbrInverse = convertBinToOct(); countNbrInverse >= 0; countNbrInverse--)
+                        else
                         {
+                            resultToShowDec = "0";
+                        }
+                    }
+
+                    nbrBitsBlockShow = 0;
+
+                    txbResultConvLeft.Text = resultToShowDec;
+                    int limiteOct = 0;
+                    // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
+                    for (int countNbrInverse = ConvertBinToOct() - 1; countNbrInverse >= 0; countNbrInverse--)
+                    {
 
                         if (resultToShowOct != "")
                         {
@@ -244,9 +228,9 @@ namespace Convertisseur_de_bases
                             else
                             {
                                 txbResultConvMiddle.Text = resultToShowOct + txbResultConvMiddle.Text;
-                                resultToShowOct = "";
+                                resultToShowOct = "0";
                                 resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
-                                limiteOct = 0;
+                                limiteOct = 1;
                             }
                         }
                         else
@@ -254,16 +238,15 @@ namespace Convertisseur_de_bases
                             resultToShowOct = "0";
                             if (limiteOct < 3)
                             {
-                                resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
+                                resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse ]));
                                 limiteOct++;
                             }
                             else
                             {
                                 txbResultConvMiddle.Text = resultToShowOct + txbResultConvMiddle.Text;
-                                resultToShowOct = "";
+                                resultToShowOct = "0";
                                 resultToShowOct = Convert.ToString(Convert.ToInt32(resultToShowOct) + (tabConvOct[countNbrInverse]));
-                                txbResultConvMiddle.Text = resultToShowOct + txbResultConvMiddle.Text;
-                                limiteOct = 0;
+                                limiteOct = 1;
                             }
                         }
 
@@ -380,11 +363,10 @@ namespace Convertisseur_de_bases
         /// Fonction permettant de convertir de décimal à binaire le nombre entré par l'utilisateur
         /// </summary>
         /// <returns>Nombre de caractère à afficher</returns>
-        private int convertDecToBin()
+        private int ConvertDecToBin()
         {
             nbrBitsInTabBin = 0;
             tabConvCalculBin[0] = valueUser;
-
 
             // Permet de convertir le nombre en binaire et le stocker dans un tableau
             for (int countNbr = 0; countNbr < NBR_BITS_BIN_MAX; countNbr++)
@@ -407,18 +389,6 @@ namespace Convertisseur_de_bases
 
                 nbrBitsInTabBin += 1;
             }
-            /*
-            if(lblSign.Text != "+" && lblSign.Text != "")
-            {
-                string raplace;
-                for (int countNbr = 0; countNbr < NBR_BITS_BIN_MAX; countNbr++)
-                {
-                    raplace = Convert.ToString(tabConvBin[countNbr]);
-                    raplace = raplace.Replace("0", "2").Replace("1", "0").Replace("2","1");
-                    tabConvBin[countNbr] = Convert.ToInt32(raplace);
-                }
-            }
-            */
             return nbrBitsInTabBin;
         }
 
@@ -426,7 +396,7 @@ namespace Convertisseur_de_bases
         /// Fonction permettant de convertir de binaire à décimal le nombre entré par l'utilisateur
         /// </summary>
         /// <returns>Nombre de caractère à afficher</returns>
-        private int convertBinToDec()
+        private int ConvertBinToDec()
         {
             int nbrBitsInTabDec = 0;
             string valueUserToConvert = Convert.ToString(valueUser);
@@ -447,7 +417,7 @@ namespace Convertisseur_de_bases
         /// Fonction permettant de convertir de décimal à octal le nombre entré par l'utilisateur
         /// </summary>
         /// <returns>Nombre de caractère à afficher</returns>
-        private int convertDecToOct()
+        private int ConvertDecToOct()
         {
             nbrBitsInTabOct = 0;
             tabConvCalculOct[0] = valueUser;
@@ -477,7 +447,7 @@ namespace Convertisseur_de_bases
             return nbrBitsInTabOct;
         }
 
-        private int convertBinToOct()
+        private int ConvertBinToOct()
         {
             int nbrBitsInTabOct = 0;
             int limitConvertOct = 0;
@@ -498,6 +468,7 @@ namespace Convertisseur_de_bases
                     limitConvertOct = 0;
                     tabConvCalculOct[posTable] = Convert.ToInt32(valueUserToConvert.Substring(posTable, 1));
                     tabConvOct[posTable] = tabConvCalculOct[posTable] * Convert.ToInt32(Math.Pow(Convert.ToDouble(2), Convert.ToDouble(limitConvertOct)));
+                    limitConvertOct++;
                 }
                 nbrBitsInTabOct++;
             }
@@ -516,9 +487,9 @@ namespace Convertisseur_de_bases
 
             for(int nbrConvCalculBinShow = 0; nbrConvCalculBinShow <= nbrBitsInTabBin; nbrConvCalculBinShow++)
             {
-                fntCalcul.getTable(tabConvCalculBin[nbrConvCalculBinShow], tabConvBin[nbrConvCalculBinShow], lblResultConvertLeft.Text);
+                fntCalcul.GetTable(tabConvCalculBin[nbrConvCalculBinShow], tabConvBin[nbrConvCalculBinShow], lblResultConvertLeft.Text);
             }
-            fntCalcul.showAllCalcul();
+            fntCalcul.ShowAllCalcul();
             fntCalcul.Show();
         }
 
@@ -528,9 +499,9 @@ namespace Convertisseur_de_bases
 
             for (int nbrConvCalculOctShow = 0; nbrConvCalculOctShow <= nbrBitsInTabOct; nbrConvCalculOctShow++)
             {
-                fntCalcul.getTable(tabConvCalculOct[nbrConvCalculOctShow], tabConvOct[nbrConvCalculOctShow], lblResultConvertMiddle.Text);
+                fntCalcul.GetTable(tabConvCalculOct[nbrConvCalculOctShow], tabConvOct[nbrConvCalculOctShow], lblResultConvertMiddle.Text);
             }
-            fntCalcul.showAllCalcul();
+            fntCalcul.ShowAllCalcul();
             fntCalcul.Show();
         }
     }

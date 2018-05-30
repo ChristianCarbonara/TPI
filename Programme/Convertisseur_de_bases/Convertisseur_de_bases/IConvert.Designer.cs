@@ -152,24 +152,23 @@
             // 
             this.txbValueUserBeforePoint.Location = new System.Drawing.Point(40, 71);
             this.txbValueUserBeforePoint.Name = "txbValueUserBeforePoint";
-            this.txbValueUserBeforePoint.Size = new System.Drawing.Size(121, 20);
+            this.txbValueUserBeforePoint.Size = new System.Drawing.Size(195, 20);
             this.txbValueUserBeforePoint.TabIndex = 3;
             this.txbValueUserBeforePoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txbValueUserBeforePoint.TextChanged += new System.EventHandler(this.txbValueUserBeforePoint_TextChanged);
             // 
             // txbValueUserAfterPoint
             // 
-            this.txbValueUserAfterPoint.Location = new System.Drawing.Point(183, 71);
+            this.txbValueUserAfterPoint.Location = new System.Drawing.Point(261, 71);
             this.txbValueUserAfterPoint.Name = "txbValueUserAfterPoint";
             this.txbValueUserAfterPoint.Size = new System.Drawing.Size(100, 20);
             this.txbValueUserAfterPoint.TabIndex = 4;
             this.txbValueUserAfterPoint.Visible = false;
-            this.txbValueUserAfterPoint.TextChanged += new System.EventHandler(this.txbValueUserAfterPoint_TextChanged);
             // 
             // lblPoint
             // 
             this.lblPoint.AutoSize = true;
-            this.lblPoint.Location = new System.Drawing.Point(167, 74);
+            this.lblPoint.Location = new System.Drawing.Point(245, 74);
             this.lblPoint.Name = "lblPoint";
             this.lblPoint.Size = new System.Drawing.Size(10, 13);
             this.lblPoint.TabIndex = 5;

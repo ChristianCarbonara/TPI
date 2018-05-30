@@ -1,15 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// ETML
+/// Auteur : Christian Carbonara
+/// Date   : 30.05.2018
+/// Description : Page de Permettant d'afficher les calculs de conversions
+///               dans le but de démontrer à l'utilisateur comment effectuer les opérations
+
+using System;
 using System.Windows.Forms;
 
+/// <summary>
+/// 
+/// </summary>
 namespace Convertisseur_de_bases
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class IShowCalcul : Form
     {
         // Permet d'utiliser les switchs suivent le format choisi
@@ -18,12 +23,17 @@ namespace Convertisseur_de_bases
         const string HEX_TEXT = "Héxadécimal";
         const string OCT_TEXT = "Octal";
 
+        // Table contenant les calculs
         int[] tabCalcul = new int[33];
         int[] tabConvert = new int[33];
+
         int nbrConvCalculBinShow = 0;
 
         string textFormatRest = "";
 
+        /// <summary>
+        /// Initialise la page avec les composants
+        /// </summary>
         public IShowCalcul()
         {
             InitializeComponent();
@@ -63,7 +73,13 @@ namespace Convertisseur_de_bases
             lblThirtiethSecondResult.Visible = false;
         }
 
-        public void getTable(int nbrResult,int nbrTabConvert, string formatResult)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nbrResult"></param>
+        /// <param name="nbrTabConvert"></param>
+        /// <param name="formatResult"></param>
+        public void GetTable(int nbrResult,int nbrTabConvert, string formatResult)
         {
 
             switch (formatResult)
@@ -84,8 +100,10 @@ namespace Convertisseur_de_bases
             }
         }
 
-        
-        public void showAllCalcul()
+        /// <summary>
+        /// 
+        /// </summary>
+        public void ShowAllCalcul()
         {
             for (int nbrResultCalculShow = 0; nbrResultCalculShow < nbrConvCalculBinShow; nbrResultCalculShow++)
             {
