@@ -8,12 +8,12 @@ using System;
 using System.Windows.Forms;
 
 /// <summary>
-/// 
+/// Page d'affichage des calculs
 /// </summary>
 namespace Convertisseur_de_bases
 {
     /// <summary>
-    /// 
+    /// Form qui s'ouvre pour afficher les calculs nécessaire pour obtenir le résultat
     /// </summary>
     public partial class IShowCalcul : Form
     {
@@ -27,8 +27,10 @@ namespace Convertisseur_de_bases
         int[] tabCalcul = new int[33];
         int[] tabConvert = new int[33];
 
-        int nbrConvCalculBinShow = 0;
+        // Nombre de fois où un calcul a été fait et est montré
+        int nbrConvCalculShow = 0;
 
+        // Text démontrant le calcul
         string textFormatRest = "";
 
         /// <summary>
@@ -74,38 +76,37 @@ namespace Convertisseur_de_bases
         }
 
         /// <summary>
-        /// 
+        /// Permet de récupérer les résultats du calcul dans des tables, défini quel résultat il faut affiché
         /// </summary>
         /// <param name="nbrResult"></param>
         /// <param name="nbrTabConvert"></param>
         /// <param name="formatResult"></param>
         public void GetTable(int nbrResult,int nbrTabConvert, string formatResult)
         {
-
             switch (formatResult)
             {
                 case BIN_TEXT:
-                    tabCalcul[nbrConvCalculBinShow] = nbrResult;
-                    tabConvert[nbrConvCalculBinShow] = nbrTabConvert;
+                    tabCalcul[nbrConvCalculShow] = nbrResult;
+                    tabConvert[nbrConvCalculShow] = nbrTabConvert;
                     textFormatRest = "  %  2        |    Reste ";
-                    nbrConvCalculBinShow++;
+                    nbrConvCalculShow++;
                     break;
 
                 case OCT_TEXT:
-                    tabCalcul[nbrConvCalculBinShow] = nbrResult;
-                    tabConvert[nbrConvCalculBinShow] = nbrTabConvert;
+                    tabCalcul[nbrConvCalculShow] = nbrResult;
+                    tabConvert[nbrConvCalculShow] = nbrTabConvert;
                     textFormatRest = "  %  8        |    Reste ";
-                    nbrConvCalculBinShow++;
+                    nbrConvCalculShow++;
                     break;
             }
         }
 
         /// <summary>
-        /// 
+        /// Permet d'afficher tout le calcul en entier avec chaque résultat
         /// </summary>
         public void ShowAllCalcul()
         {
-            for (int nbrResultCalculShow = 0; nbrResultCalculShow < nbrConvCalculBinShow; nbrResultCalculShow++)
+            for (int nbrResultCalculShow = 0; nbrResultCalculShow < nbrConvCalculShow; nbrResultCalculShow++)
             {
                 switch (nbrResultCalculShow)
                 {

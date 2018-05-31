@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace Convertisseur_de_bases
 {
     /// <summary>
-    /// 
+    /// Form du programme de conversion et celui qui s'ouvre au lancement
     /// </summary>
     public partial class fntProgram : Form
     {
@@ -33,7 +33,6 @@ namespace Convertisseur_de_bases
         const int NBR_BITS_HEX_MAX = 0;
         const int NBR_BITS_OCT_MAX = 11;
 
-
         // Tableau pour stocker le résultat de chaque format
         int[] tabConvBin = new int[NBR_BITS_BIN_MAX];
         int[] tabConvDec = new int[NBR_BITS_DEC_MAX];
@@ -47,6 +46,8 @@ namespace Convertisseur_de_bases
         int[] tabConvCalculOct = new int[12];
         
         int valueUser;
+
+        // Nombre de bits
         int nbrBitsInTabBin = 0;
         int nbrBitsInTabOct = 0;
 
@@ -55,7 +56,6 @@ namespace Convertisseur_de_bases
         // Regex pour vérifier si l'utilisateur a entré uniquement des chiffres
         Regex checkValDec = new Regex("^[0-9]+$");
         Regex checkValBin = new Regex("^[0-1]+$");
-
 
         /// <summary>
         /// Initialise l'application au lancement, n'affiche que l'interface pour effectuer des conversions
@@ -144,8 +144,7 @@ namespace Convertisseur_de_bases
             int nbrBitsBlockShowMax = 4;
             txbResultConvLeft.Text = "";
             txbResultConvMiddle.Text = "";
-
-
+            
             // Permet de convertir suivent le format que l'utilisateur choisit
             switch (formatSelect)
             {
@@ -286,9 +285,6 @@ namespace Convertisseur_de_bases
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
                         btnConvert.Enabled = false;
-                        btnShowCalculResultLeft.Enabled = false;
-                        txbResultConvLeft.Text = "Erreur";
-                        txbResultConvMiddle.Text = "Erreur";
                     }
                     break;
 
@@ -302,9 +298,6 @@ namespace Convertisseur_de_bases
                     {
                         txbValueUserBeforePoint.BackColor = Color.MediumVioletRed;
                         btnConvert.Enabled = false;
-                        btnShowCalculResultLeft.Enabled = false;
-                        txbResultConvLeft.Text = "Erreur";
-                        txbResultConvMiddle.Text = "Erreur";
                     }
                     break;
             }
@@ -438,7 +431,6 @@ namespace Convertisseur_de_bases
 
                 if (tabConvCalculOct[countNbr + 1] == 0)
                 {
-                    
                     break;
                 }
 
@@ -447,6 +439,10 @@ namespace Convertisseur_de_bases
             return nbrBitsInTabOct;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private int ConvertBinToOct()
         {
             int nbrBitsInTabOct = 0;
@@ -477,7 +473,7 @@ namespace Convertisseur_de_bases
         }
 
         /// <summary>
-        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat
+        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat de gauche
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -493,6 +489,11 @@ namespace Convertisseur_de_bases
             fntCalcul.Show();
         }
 
+        /// <summary>
+        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat du milieu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnShowCalculResultMiddle_Click(object sender, EventArgs e)
         {
             IShowCalcul fntCalcul = new IShowCalcul();
