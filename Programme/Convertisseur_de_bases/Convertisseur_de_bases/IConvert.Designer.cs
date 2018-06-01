@@ -64,7 +64,7 @@
             this.tsbHelp});
             this.tsMenu.Location = new System.Drawing.Point(0, 0);
             this.tsMenu.Name = "tsMenu";
-            this.tsMenu.Size = new System.Drawing.Size(529, 25);
+            this.tsMenu.Size = new System.Drawing.Size(381, 25);
             this.tsMenu.TabIndex = 0;
             this.tsMenu.Text = "toolStrip1";
             // 
@@ -82,13 +82,13 @@
             // tsmiModeAddition
             // 
             this.tsmiModeAddition.Name = "tsmiModeAddition";
-            this.tsmiModeAddition.Size = new System.Drawing.Size(137, 22);
+            this.tsmiModeAddition.Size = new System.Drawing.Size(152, 22);
             this.tsmiModeAddition.Text = "Additionner";
             // 
             // tsmiModeSubtract
             // 
             this.tsmiModeSubtract.Name = "tsmiModeSubtract";
-            this.tsmiModeSubtract.Size = new System.Drawing.Size(137, 22);
+            this.tsmiModeSubtract.Size = new System.Drawing.Size(152, 22);
             this.tsmiModeSubtract.Text = "Soustraire";
             // 
             // tsddbOptions
@@ -107,7 +107,7 @@
             this.tsmiSignedYes,
             this.tsmiSignedNo});
             this.tsmiSigned.Name = "tsmiSigned";
-            this.tsmiSigned.Size = new System.Drawing.Size(103, 22);
+            this.tsmiSigned.Size = new System.Drawing.Size(152, 22);
             this.tsmiSigned.Text = "Signé";
             // 
             // tsmiSignedYes
@@ -163,7 +163,6 @@
             this.txbValueUserAfterPoint.Name = "txbValueUserAfterPoint";
             this.txbValueUserAfterPoint.Size = new System.Drawing.Size(100, 20);
             this.txbValueUserAfterPoint.TabIndex = 4;
-            this.txbValueUserAfterPoint.Visible = false;
             // 
             // lblPoint
             // 
@@ -173,38 +172,37 @@
             this.lblPoint.Size = new System.Drawing.Size(10, 13);
             this.lblPoint.TabIndex = 5;
             this.lblPoint.Text = ".";
-            this.lblPoint.Visible = false;
             // 
             // txbResultConvLeft
             // 
-            this.txbResultConvLeft.Location = new System.Drawing.Point(25, 160);
+            this.txbResultConvLeft.Location = new System.Drawing.Point(25, 138);
             this.txbResultConvLeft.Name = "txbResultConvLeft";
             this.txbResultConvLeft.ReadOnly = true;
-            this.txbResultConvLeft.Size = new System.Drawing.Size(222, 20);
+            this.txbResultConvLeft.Size = new System.Drawing.Size(336, 20);
             this.txbResultConvLeft.TabIndex = 6;
             this.txbResultConvLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txbResultConvMiddle
             // 
-            this.txbResultConvMiddle.Location = new System.Drawing.Point(273, 160);
+            this.txbResultConvMiddle.Location = new System.Drawing.Point(25, 224);
             this.txbResultConvMiddle.Name = "txbResultConvMiddle";
             this.txbResultConvMiddle.ReadOnly = true;
-            this.txbResultConvMiddle.Size = new System.Drawing.Size(100, 20);
+            this.txbResultConvMiddle.Size = new System.Drawing.Size(336, 20);
             this.txbResultConvMiddle.TabIndex = 7;
             this.txbResultConvMiddle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txbResultConvRight
             // 
-            this.txbResultConvRight.Location = new System.Drawing.Point(406, 160);
+            this.txbResultConvRight.Location = new System.Drawing.Point(25, 316);
             this.txbResultConvRight.Name = "txbResultConvRight";
             this.txbResultConvRight.ReadOnly = true;
-            this.txbResultConvRight.Size = new System.Drawing.Size(100, 20);
+            this.txbResultConvRight.Size = new System.Drawing.Size(336, 20);
             this.txbResultConvRight.TabIndex = 8;
             this.txbResultConvRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(431, 261);
+            this.btnConvert.Location = new System.Drawing.Point(286, 424);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -215,7 +213,7 @@
             // lblResultConvertLeft
             // 
             this.lblResultConvertLeft.AutoSize = true;
-            this.lblResultConvertLeft.Location = new System.Drawing.Point(22, 144);
+            this.lblResultConvertLeft.Location = new System.Drawing.Point(22, 122);
             this.lblResultConvertLeft.Name = "lblResultConvertLeft";
             this.lblResultConvertLeft.Size = new System.Drawing.Size(85, 13);
             this.lblResultConvertLeft.TabIndex = 10;
@@ -224,7 +222,7 @@
             // lblResultConvertMiddle
             // 
             this.lblResultConvertMiddle.AutoSize = true;
-            this.lblResultConvertMiddle.Location = new System.Drawing.Point(270, 144);
+            this.lblResultConvertMiddle.Location = new System.Drawing.Point(22, 208);
             this.lblResultConvertMiddle.Name = "lblResultConvertMiddle";
             this.lblResultConvertMiddle.Size = new System.Drawing.Size(75, 13);
             this.lblResultConvertMiddle.TabIndex = 11;
@@ -233,7 +231,7 @@
             // lblResultConvertRight
             // 
             this.lblResultConvertRight.AutoSize = true;
-            this.lblResultConvertRight.Location = new System.Drawing.Point(403, 144);
+            this.lblResultConvertRight.Location = new System.Drawing.Point(22, 300);
             this.lblResultConvertRight.Name = "lblResultConvertRight";
             this.lblResultConvertRight.Size = new System.Drawing.Size(75, 13);
             this.lblResultConvertRight.TabIndex = 12;
@@ -262,7 +260,7 @@
             // 
             // btnShowCalculResultLeft
             // 
-            this.btnShowCalculResultLeft.Location = new System.Drawing.Point(147, 186);
+            this.btnShowCalculResultLeft.Location = new System.Drawing.Point(261, 164);
             this.btnShowCalculResultLeft.Name = "btnShowCalculResultLeft";
             this.btnShowCalculResultLeft.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultLeft.TabIndex = 15;
@@ -272,7 +270,7 @@
             // 
             // btnShowCalculResultMiddle
             // 
-            this.btnShowCalculResultMiddle.Location = new System.Drawing.Point(273, 186);
+            this.btnShowCalculResultMiddle.Location = new System.Drawing.Point(261, 250);
             this.btnShowCalculResultMiddle.Name = "btnShowCalculResultMiddle";
             this.btnShowCalculResultMiddle.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultMiddle.TabIndex = 16;
@@ -282,7 +280,7 @@
             // 
             // btnShowCalculResultRight
             // 
-            this.btnShowCalculResultRight.Location = new System.Drawing.Point(406, 186);
+            this.btnShowCalculResultRight.Location = new System.Drawing.Point(261, 342);
             this.btnShowCalculResultRight.Name = "btnShowCalculResultRight";
             this.btnShowCalculResultRight.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultRight.TabIndex = 17;
@@ -293,7 +291,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(529, 296);
+            this.ClientSize = new System.Drawing.Size(381, 459);
             this.Controls.Add(this.btnShowCalculResultRight);
             this.Controls.Add(this.btnShowCalculResultMiddle);
             this.Controls.Add(this.btnShowCalculResultLeft);
