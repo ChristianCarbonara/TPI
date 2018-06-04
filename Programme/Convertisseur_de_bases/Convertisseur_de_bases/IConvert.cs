@@ -180,9 +180,8 @@ namespace Convertisseur_de_bases
                     if (lblSign.Text == "-" && txbValueUserAfterPoint.Text == "")
                     {
                         resultToShowBin = "";
-                        txbResultConvLeft.Text = txbResultConvLeft.Text.Replace("0", "2").Replace("1", "0").Replace("2", "1");
                         sizeValueToInverse = txbResultConvLeft.TextLength;
-                        for (int nbrBitsInverseTab = 0; nbrBitsInverseTab < sizeValueToInverse; nbrBitsInverseTab++)
+                        for (int nbrBitsInverseTab = 0; nbrBitsInverseTab < NBR_BITS_BIN_MAX; nbrBitsInverseTab++)
                         {
                             if (tabConvBin[nbrBitsInverseTab] == 0)
                             {
@@ -193,7 +192,7 @@ namespace Convertisseur_de_bases
                                 tabConvBin[nbrBitsInverseTab] = 0;
                             }
                         }
-                        for (int nbrBitsInverse = 0; nbrBitsInverse <= sizeValueToInverse - 1; nbrBitsInverse++)
+                        for (int nbrBitsInverse = 0; nbrBitsInverse <= NBR_BITS_BIN_MAX - 1; nbrBitsInverse++)
                         {
                             if (tabConvBin[nbrBitsInverse] + restraint == 2)
                             {
@@ -438,7 +437,7 @@ namespace Convertisseur_de_bases
             double valueAfterPoint;
 
             // Permet de convertir le nombre en binaire et le stocker dans un tableau
-            for (int countNbr = 0; countNbr < NBR_BITS_BIN_MAX; countNbr++)
+            for (int countNbr = 0; countNbr <= NBR_BITS_BIN_MAX - 2; countNbr++)
             {
                 tabConvBin[countNbr] = tabConvCalculBin[countNbr] % 2;
 
@@ -453,7 +452,7 @@ namespace Convertisseur_de_bases
 
                 if (tabConvCalculBin[countNbr + 1] == 0)
                 {
-                    break;
+                    tabConvCalculBin[countNbr + 1] = 0;
                 }
 
                 nbrBitsInTabBin += 1;
