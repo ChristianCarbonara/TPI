@@ -1,6 +1,6 @@
 ﻿namespace Convertisseur_de_bases
 {
-    partial class fntProgram
+    partial class frmProgram
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -32,11 +32,10 @@
             this.tsddbChoseMode = new System.Windows.Forms.ToolStripDropDownButton();
             this.tsmiModeAddition = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiModeSubtract = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsddbOptions = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tsbHelp = new System.Windows.Forms.ToolStripButton();
             this.tsmiSigned = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSignedYes = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiSignedNo = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsbHelp = new System.Windows.Forms.ToolStripButton();
             this.cobListFormat = new System.Windows.Forms.ComboBox();
             this.txbValueUserBeforePoint = new System.Windows.Forms.TextBox();
             this.txbValueUserAfterPoint = new System.Windows.Forms.TextBox();
@@ -60,11 +59,11 @@
             // 
             this.tsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsddbChoseMode,
-            this.tsddbOptions,
-            this.tsbHelp});
+            this.tsbHelp,
+            this.tsmiSigned});
             this.tsMenu.Location = new System.Drawing.Point(0, 0);
             this.tsMenu.Name = "tsMenu";
-            this.tsMenu.Size = new System.Drawing.Size(381, 25);
+            this.tsMenu.Size = new System.Drawing.Size(504, 25);
             this.tsMenu.TabIndex = 0;
             this.tsMenu.Text = "toolStrip1";
             // 
@@ -91,40 +90,6 @@
             this.tsmiModeSubtract.Size = new System.Drawing.Size(152, 22);
             this.tsmiModeSubtract.Text = "Soustraire";
             // 
-            // tsddbOptions
-            // 
-            this.tsddbOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsddbOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSigned});
-            this.tsddbOptions.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsddbOptions.Name = "tsddbOptions";
-            this.tsddbOptions.Size = new System.Drawing.Size(62, 22);
-            this.tsddbOptions.Text = "Options";
-            // 
-            // tsmiSigned
-            // 
-            this.tsmiSigned.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiSignedYes,
-            this.tsmiSignedNo});
-            this.tsmiSigned.Name = "tsmiSigned";
-            this.tsmiSigned.Size = new System.Drawing.Size(152, 22);
-            this.tsmiSigned.Text = "Signé";
-            // 
-            // tsmiSignedYes
-            // 
-            this.tsmiSignedYes.Name = "tsmiSignedYes";
-            this.tsmiSignedYes.Size = new System.Drawing.Size(97, 22);
-            this.tsmiSignedYes.Text = "Oui";
-            this.tsmiSignedYes.Click += new System.EventHandler(this.tsmiSignedYes_Click);
-            // 
-            // tsmiSignedNo
-            // 
-            this.tsmiSignedNo.BackColor = System.Drawing.SystemColors.Window;
-            this.tsmiSignedNo.Name = "tsmiSignedNo";
-            this.tsmiSignedNo.Size = new System.Drawing.Size(97, 22);
-            this.tsmiSignedNo.Text = "Non";
-            this.tsmiSignedNo.Click += new System.EventHandler(this.tsmiSignedNo_Click);
-            // 
             // tsbHelp
             // 
             this.tsbHelp.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -133,6 +98,28 @@
             this.tsbHelp.Name = "tsbHelp";
             this.tsbHelp.Size = new System.Drawing.Size(23, 22);
             this.tsbHelp.Text = "?";
+            // 
+            // tsmiSigned
+            // 
+            this.tsmiSigned.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSignedYes,
+            this.tsmiSignedNo});
+            this.tsmiSigned.Name = "tsmiSigned";
+            this.tsmiSigned.Size = new System.Drawing.Size(48, 25);
+            this.tsmiSigned.Text = "Signé";
+            // 
+            // tsmiSignedYes
+            // 
+            this.tsmiSignedYes.Name = "tsmiSignedYes";
+            this.tsmiSignedYes.Size = new System.Drawing.Size(97, 22);
+            this.tsmiSignedYes.Text = "Oui";
+            // 
+            // tsmiSignedNo
+            // 
+            this.tsmiSignedNo.BackColor = System.Drawing.SystemColors.Window;
+            this.tsmiSignedNo.Name = "tsmiSignedNo";
+            this.tsmiSignedNo.Size = new System.Drawing.Size(97, 22);
+            this.tsmiSignedNo.Text = "Non";
             // 
             // cobListFormat
             // 
@@ -152,22 +139,22 @@
             // 
             this.txbValueUserBeforePoint.Location = new System.Drawing.Point(40, 71);
             this.txbValueUserBeforePoint.Name = "txbValueUserBeforePoint";
-            this.txbValueUserBeforePoint.Size = new System.Drawing.Size(195, 20);
+            this.txbValueUserBeforePoint.Size = new System.Drawing.Size(239, 20);
             this.txbValueUserBeforePoint.TabIndex = 3;
             this.txbValueUserBeforePoint.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txbValueUserBeforePoint.TextChanged += new System.EventHandler(this.txbValueUserBeforePoint_TextChanged);
             // 
             // txbValueUserAfterPoint
             // 
-            this.txbValueUserAfterPoint.Location = new System.Drawing.Point(261, 71);
+            this.txbValueUserAfterPoint.Location = new System.Drawing.Point(301, 71);
             this.txbValueUserAfterPoint.Name = "txbValueUserAfterPoint";
-            this.txbValueUserAfterPoint.Size = new System.Drawing.Size(100, 20);
+            this.txbValueUserAfterPoint.Size = new System.Drawing.Size(191, 20);
             this.txbValueUserAfterPoint.TabIndex = 4;
             // 
             // lblPoint
             // 
             this.lblPoint.AutoSize = true;
-            this.lblPoint.Location = new System.Drawing.Point(245, 74);
+            this.lblPoint.Location = new System.Drawing.Point(285, 74);
             this.lblPoint.Name = "lblPoint";
             this.lblPoint.Size = new System.Drawing.Size(10, 13);
             this.lblPoint.TabIndex = 5;
@@ -178,7 +165,7 @@
             this.txbResultConvLeft.Location = new System.Drawing.Point(25, 138);
             this.txbResultConvLeft.Name = "txbResultConvLeft";
             this.txbResultConvLeft.ReadOnly = true;
-            this.txbResultConvLeft.Size = new System.Drawing.Size(336, 20);
+            this.txbResultConvLeft.Size = new System.Drawing.Size(467, 20);
             this.txbResultConvLeft.TabIndex = 6;
             this.txbResultConvLeft.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -187,7 +174,7 @@
             this.txbResultConvMiddle.Location = new System.Drawing.Point(25, 224);
             this.txbResultConvMiddle.Name = "txbResultConvMiddle";
             this.txbResultConvMiddle.ReadOnly = true;
-            this.txbResultConvMiddle.Size = new System.Drawing.Size(336, 20);
+            this.txbResultConvMiddle.Size = new System.Drawing.Size(467, 20);
             this.txbResultConvMiddle.TabIndex = 7;
             this.txbResultConvMiddle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -196,13 +183,13 @@
             this.txbResultConvRight.Location = new System.Drawing.Point(25, 316);
             this.txbResultConvRight.Name = "txbResultConvRight";
             this.txbResultConvRight.ReadOnly = true;
-            this.txbResultConvRight.Size = new System.Drawing.Size(336, 20);
+            this.txbResultConvRight.Size = new System.Drawing.Size(467, 20);
             this.txbResultConvRight.TabIndex = 8;
             this.txbResultConvRight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnConvert
             // 
-            this.btnConvert.Location = new System.Drawing.Point(286, 424);
+            this.btnConvert.Location = new System.Drawing.Point(417, 424);
             this.btnConvert.Name = "btnConvert";
             this.btnConvert.Size = new System.Drawing.Size(75, 23);
             this.btnConvert.TabIndex = 9;
@@ -260,7 +247,7 @@
             // 
             // btnShowCalculResultLeft
             // 
-            this.btnShowCalculResultLeft.Location = new System.Drawing.Point(261, 164);
+            this.btnShowCalculResultLeft.Location = new System.Drawing.Point(392, 164);
             this.btnShowCalculResultLeft.Name = "btnShowCalculResultLeft";
             this.btnShowCalculResultLeft.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultLeft.TabIndex = 15;
@@ -270,7 +257,7 @@
             // 
             // btnShowCalculResultMiddle
             // 
-            this.btnShowCalculResultMiddle.Location = new System.Drawing.Point(261, 250);
+            this.btnShowCalculResultMiddle.Location = new System.Drawing.Point(392, 250);
             this.btnShowCalculResultMiddle.Name = "btnShowCalculResultMiddle";
             this.btnShowCalculResultMiddle.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultMiddle.TabIndex = 16;
@@ -280,18 +267,18 @@
             // 
             // btnShowCalculResultRight
             // 
-            this.btnShowCalculResultRight.Location = new System.Drawing.Point(261, 342);
+            this.btnShowCalculResultRight.Location = new System.Drawing.Point(392, 342);
             this.btnShowCalculResultRight.Name = "btnShowCalculResultRight";
             this.btnShowCalculResultRight.Size = new System.Drawing.Size(100, 23);
             this.btnShowCalculResultRight.TabIndex = 17;
             this.btnShowCalculResultRight.Text = "Montrer le calcul";
             this.btnShowCalculResultRight.UseVisualStyleBackColor = true;
             // 
-            // fntProgram
+            // frmProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(381, 459);
+            this.ClientSize = new System.Drawing.Size(504, 459);
             this.Controls.Add(this.btnShowCalculResultRight);
             this.Controls.Add(this.btnShowCalculResultMiddle);
             this.Controls.Add(this.btnShowCalculResultLeft);
@@ -310,7 +297,7 @@
             this.Controls.Add(this.cobListFormat);
             this.Controls.Add(this.tsMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "fntProgram";
+            this.Name = "frmProgram";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Convertisseur de bases";
             this.tsMenu.ResumeLayout(false);
@@ -333,20 +320,19 @@
         private System.Windows.Forms.ToolStripDropDownButton tsddbChoseMode;
         private System.Windows.Forms.ToolStripMenuItem tsmiModeAddition;
         private System.Windows.Forms.ToolStripMenuItem tsmiModeSubtract;
-        private System.Windows.Forms.ToolStripDropDownButton tsddbOptions;
         private System.Windows.Forms.ToolStripButton tsbHelp;
         private System.Windows.Forms.Label lblResultConvertLeft;
         private System.Windows.Forms.Label lblResultConvertMiddle;
         protected internal System.Windows.Forms.ComboBox cobListFormat;
         private System.Windows.Forms.Label lblResultConvertRight;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSigned;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSignedYes;
-        private System.Windows.Forms.ToolStripMenuItem tsmiSignedNo;
         private System.Windows.Forms.Label lblSign;
         protected internal System.Windows.Forms.ComboBox cobSign;
         private System.Windows.Forms.Button btnShowCalculResultLeft;
         private System.Windows.Forms.Button btnShowCalculResultMiddle;
         private System.Windows.Forms.Button btnShowCalculResultRight;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSigned;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSignedYes;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSignedNo;
     }
 }
 

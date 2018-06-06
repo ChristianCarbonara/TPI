@@ -17,7 +17,7 @@ namespace Convertisseur_de_bases
     /// <summary>
     /// Form du programme de conversion et celui qui s'ouvre au lancement
     /// </summary>
-    public partial class fntProgram : Form
+    public partial class frmProgram : Form
     {
         // Permet d'utiliser les switchs suivent le format choisi
         const string BIN_TEXT = "Binaire";
@@ -65,7 +65,7 @@ namespace Convertisseur_de_bases
         /// Initialise l'application au lancement, n'affiche que l'interface pour effectuer des conversions
         /// non signé et sans virgule
         /// </summary>
-        public fntProgram()
+        public frmProgram()
         {
             InitializeComponent();
             tsmiSignedNo.Checked = true;
@@ -83,11 +83,11 @@ namespace Convertisseur_de_bases
         }
 
         /// <summary>
-        /// Méthode qui permet à chaque changement de format d'indiquer à l'utilisateur si le nombre entré 
-        /// correspond au format défini
+        /// Méthode qui permet de définir de quel format doit être effectué la conversion, à chaque changement de format 
+        /// et de vérifier si le nombre entré correspond au format
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
         private void cobListFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
             formatSelect = cobListFormat.Text;
@@ -95,6 +95,7 @@ namespace Convertisseur_de_bases
             // Adapte l'interface et les vérifications suivent le format choisi par l'utilisateur
             switch (formatSelect)
             {
+                // Si l'utilisateur à choisi de convertir du décimal
                 case DEC_TEXT:
                     if (checkValDec.IsMatch(txbValueUserBeforePoint.Text) || txbValueUserBeforePoint.Text == "")
                     {
@@ -112,6 +113,7 @@ namespace Convertisseur_de_bases
                     lblResultConvertRight.Text = HEX_TEXT;
                     break;
 
+                // Si l'utilisateur à choisi de convertir du binaire 
                 case BIN_TEXT:
                     if (checkValBin.IsMatch(txbValueUserBeforePoint.Text) || txbValueUserBeforePoint.Text == "")
                     {
@@ -132,10 +134,40 @@ namespace Convertisseur_de_bases
         }
 
         /// <summary>
+        /// Permet de définir que le nombre entré n'est pas signé
+        /// </summary>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
+        private void tsmiSignedNo_Click(object sender, EventArgs e)
+        {
+            tsmiSignedYes.BackColor = Color.White;
+            tsmiSignedNo.BackColor = Color.PaleGreen;
+            tsmiSignedYes.Checked = false;
+            tsmiSignedNo.Checked = true;
+            lblSign.Text = "";
+            cobSign.Visible = false;
+        }
+
+        /// <summary>
+        /// Permet de définir que le nombre entré est signé
+        /// </summary>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
+        private void tsmiSignedYes_Click(object sender, EventArgs e)
+        {
+            tsmiSignedYes.BackColor = Color.PaleGreen;
+            tsmiSignedNo.BackColor = Color.White;
+            tsmiSignedYes.Checked = true;
+            tsmiSignedNo.Checked = false;
+            lblSign.Text = "";
+            cobSign.Visible = true;
+        }
+
+        /// <summary>
         /// Bouton pour effectuer la conversion du nombre entrer suivent le format
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
         private void btnConvert_Click(object sender, EventArgs e)
         {
             string resultToShowBin = "";
@@ -149,11 +181,25 @@ namespace Convertisseur_de_bases
             txbResultConvMiddle.Text = "";
             int limiteOct = 0;
 
+            // Remet à zéro chaque case du tableaux binaire
+            for (int caseTable = 0; caseTable < NBR_BITS_BIN_MAX; caseTable++)
+            {
+                tabConvBin[caseTable] = 0;
+            }
+            
+            // Remet à zéro chaque case du tableaux octal
+            for (int caseTable = 0; caseTable < NBR_BITS_OCT_MAX; caseTable++)
+            {
+                tabConvOct[caseTable] = 0;
+            }
+
             // Permet de convertir suivent le format que l'utilisateur choisit
             switch (formatSelect)
             {
+                // Si l'utilisateur a choisi de convertir du décimal
                 case DEC_TEXT:
 
+                    // Afficher les boutons pour afficher les calculs
                     btnShowCalculResultLeft.Enabled = true;
                     btnShowCalculResultMiddle.Enabled = true;
                     
@@ -177,11 +223,14 @@ namespace Convertisseur_de_bases
 
                     txbResultConvLeft.Text = resultToShowBin;
 
+                    // Vérifie si l'utilisateur veut convertir en signé négatif
                     if (lblSign.Text == "-" && txbValueUserAfterPoint.Text == "")
                     {
                         resultToShowBin = "";
                         sizeValueToInverse = txbResultConvLeft.TextLength;
-                        for (int nbrBitsInverseTab = 0; nbrBitsInverseTab < NBR_BITS_BIN_MAX; nbrBitsInverseTab++)
+
+                        // Inverse tous les bits du tableau binaire
+                        for (int nbrBitsInverseTab = 0; nbrBitsInverseTab < nbrBitsInTabBin; nbrBitsInverseTab++)
                         {
                             if (tabConvBin[nbrBitsInverseTab] == 0)
                             {
@@ -192,7 +241,9 @@ namespace Convertisseur_de_bases
                                 tabConvBin[nbrBitsInverseTab] = 0;
                             }
                         }
-                        for (int nbrBitsInverse = 0; nbrBitsInverse <= NBR_BITS_BIN_MAX - 1; nbrBitsInverse++)
+
+                        // Ajoute un bit dans le tableau binaire 
+                        for (int nbrBitsInverse = 0; nbrBitsInverse <= nbrBitsInTabBin - 1; nbrBitsInverse++)
                         {
                             if (tabConvBin[nbrBitsInverse] + restraint == 2)
                             {
@@ -217,14 +268,13 @@ namespace Convertisseur_de_bases
                     
                     txbResultConvLeft.Text = resultToShowBin;
 
-
+                    // Permet d'afficher les bits qui se trouvent après la virgule en binaire
                     for (int nbrBitsShow = 0; nbrBitsShow < nbrBitsInTabBinSecond; nbrBitsShow++)
                     {
                         if (nbrBitsShow == 0)
                         {
                             txbResultConvLeft.Text = txbResultConvLeft.Text + ".";
                         }
-
                         if (txbValueUserAfterPoint.Text != "")
                         {
                             txbResultConvLeft.Text = txbResultConvLeft.Text + tabConvBinSecond[nbrBitsShow];
@@ -249,13 +299,13 @@ namespace Convertisseur_de_bases
 
                     txbResultConvMiddle.Text = resultToShowOct;
 
+                    // Permet d'afficher les bits qui se trouvent après la virgule en octale
                     for (int nbrBitsShow = 0; nbrBitsShow < nbrBitsInTabOctSecond; nbrBitsShow++)
                     {
                         if (nbrBitsShow == 0)
                         {
                             txbResultConvMiddle.Text = txbResultConvMiddle.Text + ".";
                         }
-
                         if (txbValueUserAfterPoint.Text != "")
                         {
                             txbResultConvMiddle.Text = txbResultConvMiddle.Text + tabConvOctSecond[nbrBitsShow];
@@ -264,8 +314,10 @@ namespace Convertisseur_de_bases
 
                     break;
 
+                // Si l'utilisateur a choisi de convertir du binaire
                 case BIN_TEXT:
 
+                    // Afficher les boutons pour afficher les calculs
                     btnShowCalculResultLeft.Enabled = true;
                     btnShowCalculResultMiddle.Enabled = true;
 
@@ -285,10 +337,10 @@ namespace Convertisseur_de_bases
                     nbrBitsBlockShow = 0;
 
                     txbResultConvLeft.Text = resultToShowDec;
+
                     // Stock le résultat sur une variable en récupérant dans chaque case du tableau les valeurs
                     for (int countNbrInverse = ConvertBinToOct() - 1; countNbrInverse >= 0; countNbrInverse--)
                     {
-
                         if (resultToShowOct != "")
                         {
                             if (limiteOct < 3)
@@ -330,12 +382,13 @@ namespace Convertisseur_de_bases
         /// <summary>
         /// Vérifie le nombre entré par l'utilisateur correspond au format choisi
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
         private void txbValueUserBeforePoint_TextChanged(object sender, EventArgs e)
         {
             string valueUserToCheck = "";
 
+            // Vérifie s'il s'agit d'une conversion signée
             if(lblSign.Text == "+" || lblSign.Text == "-")
             {
                 valueUserToCheck = lblSign.Text + txbValueUserBeforePoint.Text;
@@ -345,9 +398,13 @@ namespace Convertisseur_de_bases
                 valueUserToCheck = txbValueUserBeforePoint.Text;
             }
 
+            // Permet de vérifié si le format du nombre entré correspond au format choisi
             switch (formatSelect)
             {
+                // Si l'utilisateur a choisi de convertir du décimal
                 case DEC_TEXT:
+
+                    // Vérifie si le nombre entré correspond au format autorisé
                     if (checkValDec.IsMatch(txbValueUserBeforePoint.Text) && int.TryParse(valueUserToCheck, out valueUser))
                     {
                         valueUser = Convert.ToInt32(txbValueUserBeforePoint.Text);
@@ -361,7 +418,10 @@ namespace Convertisseur_de_bases
                     }
                     break;
 
+                // Si l'utilisateur a choisi de convertir du binaire
                 case BIN_TEXT:
+
+                    // Vérifie si le nombre entré correspond au format autorisé
                     if (checkValBin.IsMatch(txbValueUserBeforePoint.Text) && int.TryParse(valueUserToCheck, out valueUser))
                     {
                         valueUser = Convert.ToInt32(txbValueUserBeforePoint.Text);
@@ -378,40 +438,10 @@ namespace Convertisseur_de_bases
         }
 
         /// <summary>
-        /// Permet de définir que le nombre entré n'est pas signé
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsmiSignedNo_Click(object sender, EventArgs e)
-        {
-            tsmiSignedYes.BackColor = Color.White;
-            tsmiSignedNo.BackColor = Color.PaleGreen;
-            tsmiSignedYes.Checked = false;
-            tsmiSignedNo.Checked = true;
-            lblSign.Text = "";
-            cobSign.Visible = false;
-        }
-
-        /// <summary>
-        /// Permet de définir que le nombre entré est signé
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsmiSignedYes_Click(object sender, EventArgs e)
-        {
-            tsmiSignedYes.BackColor = Color.PaleGreen;
-            tsmiSignedNo.BackColor = Color.White;
-            tsmiSignedYes.Checked = true;
-            tsmiSignedNo.Checked = false;
-            lblSign.Text = "";
-            cobSign.Visible = true;
-        }
-
-        /// <summary>
         /// Permet de définir si le nombre signé est positif ou négatif
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
         private void cobSign_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (cobSign.Text)
@@ -425,7 +455,41 @@ namespace Convertisseur_de_bases
                     break;
             }
         }
-        
+
+        /// <summary>
+        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat de gauche
+        /// </summary>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
+        private void btnShowCalculResultLeft_Click(object sender, EventArgs e)
+        {
+            IShowCalcul fntCalcul = new IShowCalcul();
+
+            for (int nbrConvCalculBinShow = 0; nbrConvCalculBinShow <= nbrBitsInTabBin; nbrConvCalculBinShow++)
+            {
+                fntCalcul.GetTable(tabConvCalculBin[nbrConvCalculBinShow], tabConvBin[nbrConvCalculBinShow], lblResultConvertLeft.Text);
+            }
+            fntCalcul.ShowAllCalcul();
+            fntCalcul.Show();
+        }
+
+        /// <summary>
+        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat du milieu
+        /// </summary>
+        /// <param name="sender">Information sur l'objet</param>
+        /// <param name="e">Information sur l'événement</param>
+        private void btnShowCalculResultMiddle_Click(object sender, EventArgs e)
+        {
+            IShowCalcul fntCalcul = new IShowCalcul();
+
+            for (int nbrConvCalculOctShow = 0; nbrConvCalculOctShow <= nbrBitsInTabOct; nbrConvCalculOctShow++)
+            {
+                fntCalcul.GetTable(tabConvCalculOct[nbrConvCalculOctShow], tabConvOct[nbrConvCalculOctShow], lblResultConvertMiddle.Text);
+            }
+            fntCalcul.ShowAllCalcul();
+            fntCalcul.Show();
+        }
+
         /// <summary>
         /// Fonction permettant de convertir de décimal à binaire le nombre entré par l'utilisateur
         /// </summary>
@@ -449,7 +513,6 @@ namespace Convertisseur_de_bases
                 {
                     tabConvCalculBin[countNbr + 1] = tabConvCalculBin[countNbr] / 2;
                 }
-
                 if (tabConvCalculBin[countNbr + 1] == 0)
                 {
                     tabConvCalculBin[countNbr + 1] = 0;
@@ -463,9 +526,9 @@ namespace Convertisseur_de_bases
                 nbrBitsInTabBinSecond = 0;
                 valueAfterPoint = Convert.ToDouble("." + txbValueUserAfterPoint.Text);
 
+                // Convertit le nombre après la virgule en binaire
                 for(int countNbr = 0; countNbr < NBR_BITS_BIN_MAX; countNbr++)
                 {
-
                     if (valueAfterPoint != 0)
                     {
                         if (valueAfterPoint * 2 < 1)
@@ -496,8 +559,10 @@ namespace Convertisseur_de_bases
             int nbrBitsInTabDec = 0;
             string valueUserToConvert = Convert.ToString(valueUser);
 
+
             int lengthValueUser = valueUserToConvert.Length;
 
+            // Boucle permettant de convertir de vinaire en décimal
             for (int posTable = lengthValueUser; posTable > 0; posTable--)
             {
                 tabConvCalculDec[posTable -1] = Convert.ToInt32(valueUserToConvert.Substring(lengthValueUser - posTable, 1));
@@ -540,15 +605,15 @@ namespace Convertisseur_de_bases
                 nbrBitsInTabOct += 1;
             }
 
-
+            // Vérifie si l'utilisateur a entré un nombre après la virgule pour le convertir
             if (txbValueUserAfterPoint.Text != "")
             {
                 nbrBitsInTabOctSecond = 0;
                 valueAfterPoint = Convert.ToDouble("." + txbValueUserAfterPoint.Text);
 
+                // Convertit le nombre après la virgule en octal
                 for (int countNbr = 0; countNbr < NBR_BITS_OCT_MAX; countNbr++)
                 {
-
                     if (valueAfterPoint != 0)
                     {
                         if (valueAfterPoint * 8 < 1)
@@ -559,8 +624,12 @@ namespace Convertisseur_de_bases
                         }
                         else if (valueAfterPoint * 8 >= 1)
                         {
-                            tabConvOctSecond[countNbr] = 1;
-                            valueAfterPoint = (valueAfterPoint * 8) - 1;
+                            valueAfterPoint = (valueAfterPoint * 8);
+                            while (valueAfterPoint >= 1)
+                            {
+                                valueAfterPoint--;
+                                tabConvOctSecond[countNbr]++;
+                            }
                             nbrBitsInTabOctSecond++;
                         }
                     }
@@ -571,9 +640,9 @@ namespace Convertisseur_de_bases
         }
 
         /// <summary>
-        /// 
+        /// Permet de convertir de binaire à octal
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retourne le nombre de bits contenu dans le tableau d'octal</returns>
         private int ConvertBinToOct()
         {
             int nbrBitsInTabOct = 0;
@@ -601,40 +670,6 @@ namespace Convertisseur_de_bases
             }
 
             return nbrBitsInTabOct;
-        }
-
-        /// <summary>
-        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat de gauche
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnShowCalculResultLeft_Click(object sender, EventArgs e)
-        {
-            IShowCalcul fntCalcul = new IShowCalcul();
-
-            for(int nbrConvCalculBinShow = 0; nbrConvCalculBinShow <= nbrBitsInTabBin; nbrConvCalculBinShow++)
-            {
-                fntCalcul.GetTable(tabConvCalculBin[nbrConvCalculBinShow], tabConvBin[nbrConvCalculBinShow], lblResultConvertLeft.Text);
-            }
-            fntCalcul.ShowAllCalcul();
-            fntCalcul.Show();
-        }
-
-        /// <summary>
-        /// Bouton pour afficher en entier le calcul nécessaire pour obtenir le résultat du milieu
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnShowCalculResultMiddle_Click(object sender, EventArgs e)
-        {
-            IShowCalcul fntCalcul = new IShowCalcul();
-
-            for (int nbrConvCalculOctShow = 0; nbrConvCalculOctShow <= nbrBitsInTabOct; nbrConvCalculOctShow++)
-            {
-                fntCalcul.GetTable(tabConvCalculOct[nbrConvCalculOctShow], tabConvOct[nbrConvCalculOctShow], lblResultConvertMiddle.Text);
-            }
-            fntCalcul.ShowAllCalcul();
-            fntCalcul.Show();
         }
     }
 }

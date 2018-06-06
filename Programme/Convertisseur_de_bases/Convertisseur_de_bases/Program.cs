@@ -16,7 +16,7 @@ namespace Convertisseur_de_bases
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fntProgram());
+            Application.Run(new frmProgram());
         }
     }
 }

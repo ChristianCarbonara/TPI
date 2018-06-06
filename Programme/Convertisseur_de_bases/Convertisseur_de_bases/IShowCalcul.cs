@@ -78,9 +78,9 @@ namespace Convertisseur_de_bases
         /// <summary>
         /// Permet de récupérer les résultats du calcul dans des tables, défini quel résultat il faut affiché
         /// </summary>
-        /// <param name="nbrResult"></param>
-        /// <param name="nbrTabConvert"></param>
-        /// <param name="formatResult"></param>
+        /// <param name="nbrResult">Nombre à diviser pour le calcul</param>
+        /// <param name="nbrTabConvert">Reste après la division utilisé pour convertir</param>
+        /// <param name="formatResult">Permet de savoir dans quel est le format de conversion</param>
         public void GetTable(int nbrResult,int nbrTabConvert, string formatResult)
         {
             switch (formatResult)
