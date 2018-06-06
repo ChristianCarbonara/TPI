@@ -132,7 +132,7 @@ namespace Convertisseur_de_bases
                     break;
             }
         }
-
+        
         /// <summary>
         /// Permet de définir que le nombre entré n'est pas signé
         /// </summary>

@@ -8,3 +8,14 @@ C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Conver
 C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.pdb
 C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.IShowCalcul.resources
 C:\Users\carbonarch\Documents\GitHub\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.frmProgram.resources
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\bin\Debug\Convertisseur_de_bases.exe.config
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\bin\Debug\Convertisseur_de_bases.exe
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\bin\Debug\Convertisseur_de_bases.pdb
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Base_converter.csprojResolveAssemblyReference.cache
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.frmProgram.resources
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.IShowCalcul.resources
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.Properties.Resources.resources
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Base_converter.csproj.GenerateResource.Cache
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Base_converter.csproj.CoreCompileInputs.cache
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.exe
+C:\Users\Utilisateur\Desktop\Nouveau dossier\TPI\Programme\Convertisseur_de_bases\Convertisseur_de_bases\obj\Debug\Convertisseur_de_bases.pdb

@@ -81,13 +81,13 @@
             // tsmiModeAddition
             // 
             this.tsmiModeAddition.Name = "tsmiModeAddition";
-            this.tsmiModeAddition.Size = new System.Drawing.Size(152, 22);
+            this.tsmiModeAddition.Size = new System.Drawing.Size(137, 22);
             this.tsmiModeAddition.Text = "Additionner";
             // 
             // tsmiModeSubtract
             // 
             this.tsmiModeSubtract.Name = "tsmiModeSubtract";
-            this.tsmiModeSubtract.Size = new System.Drawing.Size(152, 22);
+            this.tsmiModeSubtract.Size = new System.Drawing.Size(137, 22);
             this.tsmiModeSubtract.Text = "Soustraire";
             // 
             // tsbHelp
@@ -111,14 +111,15 @@
             // tsmiSignedYes
             // 
             this.tsmiSignedYes.Name = "tsmiSignedYes";
-            this.tsmiSignedYes.Size = new System.Drawing.Size(97, 22);
+            this.tsmiSignedYes.Size = new System.Drawing.Size(152, 22);
             this.tsmiSignedYes.Text = "Oui";
+            this.tsmiSignedYes.Click += new System.EventHandler(this.tsmiSignedYes_Click);
             // 
             // tsmiSignedNo
             // 
             this.tsmiSignedNo.BackColor = System.Drawing.SystemColors.Window;
             this.tsmiSignedNo.Name = "tsmiSignedNo";
-            this.tsmiSignedNo.Size = new System.Drawing.Size(97, 22);
+            this.tsmiSignedNo.Size = new System.Drawing.Size(152, 22);
             this.tsmiSignedNo.Text = "Non";
             // 
             // cobListFormat
